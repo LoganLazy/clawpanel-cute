@@ -1,9 +1,40 @@
 /* 侧边栏 */
+body {
+  background: linear-gradient(160deg, #fff5fa 0%, #ffeef6 40%, #fdf2ff 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(700px 320px at 12% -10%, rgba(255, 182, 213, 0.45), transparent 60%),
+              radial-gradient(480px 260px at 88% -8%, rgba(216, 180, 254, 0.35), transparent 60%),
+              radial-gradient(420px 220px at 40% 110%, rgba(251, 207, 232, 0.3), transparent 60%),
+              radial-gradient(140px 100px at 20% 18%, rgba(255, 255, 255, 0.55), transparent 70%),
+              radial-gradient(120px 90px at 78% 22%, rgba(255, 255, 255, 0.45), transparent 70%);
+  opacity: 0.95;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.55) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,0.35) 0 1px, transparent 2px);
+  background-size: 36px 36px, 22px 22px;
+  background-position: 0 0, 12px 18px;
+}
+
 #sidebar {
   width: var(--sidebar-width);
   height: 100vh;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border-primary);
+  background: color-mix(in srgb, var(--bg-secondary) 85%, transparent);
+  border-right: 1px solid rgba(236, 72, 153, 0.15);
+  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -12,13 +43,19 @@
 }
 
 .sidebar-header {
-  padding: var(--space-lg) var(--space-lg);
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  border-bottom: 1px solid var(--border-secondary);
-  height: var(--header-height);
+  border-bottom: 1px solid rgba(236, 72, 153, 0.1);
 }
+
+.nav-item.active {
+  background: var(--accent-muted);
+  color: var(--accent-hover);
+  box-shadow: 0 8px 16px rgba(244, 114, 182, 0.16);
+}
+
+#main-col {
+  background: transparent;
+}
+
 
 .sidebar-logo {
   width: 28px;
@@ -242,10 +279,6 @@
   color: var(--text-primary);
 }
 
-.nav-item.active {
-  background: var(--accent-muted);
-  color: var(--accent-hover);
-}
 
 .nav-item svg {
   width: 18px;
@@ -516,16 +549,6 @@
   }
   .sidebar-overlay {
     display: block;
-  }
-  #sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 900;
-    transform: translateX(-100%);
-    transition: transform 250ms cubic-bezier(.22,1,.36,1);
-    box-shadow: none;
-    width: 260px;
   }
   #sidebar.sidebar-open {
     transform: translateX(0);
