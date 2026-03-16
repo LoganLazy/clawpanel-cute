@@ -175,6 +175,7 @@ export const api = {
   reloadGateway: () => invoke('reload_gateway'),
   restartGateway: () => invoke('restart_gateway'),
   listOpenclawVersions: (source = 'chinese') => invoke('list_openclaw_versions', { source }),
+  installOpenclaw: (source = 'chinese', version = null) => invoke('install_openclaw', { source, version }),
   upgradeOpenclaw: (source = 'chinese', version = null) => invoke('upgrade_openclaw', { source, version }),
   uninstallOpenclaw: (cleanConfig = false) => invoke('uninstall_openclaw', { cleanConfig }),
   installGateway: () => invoke('install_gateway'),
@@ -282,6 +283,13 @@ export const api = {
   instanceHealthCheck: (id) => invoke('instance_health_check', { id }),
   instanceHealthAll: () => invoke('instance_health_all'),
 
+
+    // 浏览器扩展（OpenClaw browser CLI）
+  browserStatus: () => invoke('browser_status'),
+  browserStart: () => invoke('browser_start'),
+  browserStop: () => invoke('browser_stop'),
+  browserInstall: () => invoke('browser_install'),
+  browserScreenshot: (url) => invoke('browser_screenshot', { url: url || null }),
 
   // 前端热更新
   checkFrontendUpdate: () => invoke('check_frontend_update'),

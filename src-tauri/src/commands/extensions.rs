@@ -4,6 +4,7 @@ use serde_json::Value;
 use std::os::windows::process::CommandExt;
 use std::process::Command;
 
+
 /// 按第一个冒号（半角 ':' 或全角 '：'）分割，返回冒号之后的内容（trim 后）
 fn split_after_colon(s: &str) -> &str {
     // 半角冒号是 1 字节，全角冒号是 3 字节（UTF-8: \xef\xbc\x9a）
@@ -537,4 +538,76 @@ Write-Output '安装完成'
 
     let _ = app.emit("install-log", "✅ ClawApp 安装成功");
     Ok("安装成功".into())
+}
+
+
+// ===== OpenClaw Browser CLI =====
+
+#[tauri::command]
+pub fn browser_status() -> Result<serde_json::Value, String> {
+    let output = crate::utils::openclaw_command()
+        .args(["browser", "status"])
+        .output();
+    match output {
+        Ok(o) => {
+            let text = String::from_utf8_lossy(&o.stdout).to_string()
+                + &String::from_utf8_lossy(&o.stderr);
+            Ok(serde_json::json!({"ok": o.status.success(), "output": text}))
+        }
+        Err(e) => Err(format!("执行失败: {e}")),
+    }
+}
+
+#[tauri::command]
+pub fn browser_start() -> Result<serde_json::Value, String> {
+    let output = crate::utils::openclaw_command()
+        .args(["browser", "start"])
+        .output();
+    match output {
+        Ok(o) => {
+            let text = String::from_utf8_lossy(&o.stdout).to_string()
+                + &String::from_utf8_lossy(&o.stderr);
+            Ok(serde_json::json!({"ok": o.status.success(), "output": text}))
+        }
+        Err(e) => Err(format!("执行失败: {e}")),
+    }
+}
+
+#[tauri::command]
+pub fn browser_stop() -> Result<serde_json::Value, String> {
+    let output = crate::utils::openclaw_command()
+        .args(["browser", "stop"])
+        .output();
+    match output {
+        Ok(o) => {
+            let text = String::from_utf8_lossy(&o.stdout).to_string()
+                + &String::from_utf8_lossy(&o.stderr);
+            Ok(serde_json::json!({"ok": o.status.success(), "output": text}))
+        }
+        Err(e) => Err(format!("执行失败: {e}")),
+    }
+}
+
+#[tauri::command]
+pub fn browser_install() -> Result<serde_json::Value, String> {
+    Ok(serde_json::json!({
+        "ok": true,
+        "message": "请在浏览器中打开 Control UI 后，点击工具栏的 OpenClaw 扩展图标完成安装/连接。"
+    }))
+}
+
+#[tauri::command]
+pub fn browser_screenshot(url: Option<String>) -> Result<serde_json::Value, String> {
+    let target = url.unwrap_or_else(|| "https://example.com".to_string());
+    let output = crate::utils::openclaw_command()
+        .args(["browser", "screenshot", &target])
+        .output();
+    match output {
+        Ok(o) => {
+            let text = String::from_utf8_lossy(&o.stdout).to_string()
+                + &String::from_utf8_lossy(&o.stderr);
+            Ok(serde_json::json!({"ok": o.status.success(), "output": text}))
+        }
+        Err(e) => Err(format!("执行失败: {e}")),
+    }
 }

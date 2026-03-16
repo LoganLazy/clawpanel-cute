@@ -35,6 +35,11 @@ export async function render() {
       <div class="form-hint" style="margin-bottom:var(--space-md)">H5 移动聊天客户端，通过代理服务端连接 Gateway。支持本地和外网访问。</div>
       <div id="clawapp-content"><div class="stat-card loading-placeholder" style="height:64px"></div></div>
     </div>
+    <div id="browser-card" class="config-section">
+      <div class="config-section-title">OpenClaw 浏览器扩展</div>
+      <div class="form-hint" style="margin-bottom:var(--space-md)">用于 OAuth 登录、网页自动化与截图。需要先启动浏览器服务并在 Chrome/Edge 中安装扩展。</div>
+      <div id="browser-content"><div class="stat-card loading-placeholder" style="height:64px"></div></div>
+    </div>
   `
 
   bindEvents(page)
@@ -46,6 +51,7 @@ async function loadAll(page) {
   await Promise.all([
     loadCftunnel(page),
     loadClawapp(page),
+    loadBrowser(page),
   ])
 }
 
@@ -192,6 +198,56 @@ function renderClawapp(el, s) {
   `
 }
 
+// ===== OpenClaw Browser =====
+
+async function loadBrowser(page) {
+  const el = page.querySelector('#browser-content')
+  try {
+    const st = await api.browserStatus()
+    renderBrowser(el, st)
+  } catch (e) {
+    el.innerHTML = `<div style="color:var(--error)">加载失败: ${e}</div>`
+  }
+}
+
+function renderBrowser(el, s) {
+  const ok = !!s?.ok
+  const out = (s?.output || '').trim()
+  el.innerHTML = `
+    <div class="stat-cards" style="margin-bottom:var(--space-md)">
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-label">状态</span>
+          <span class="status-dot ${ok ? 'running' : 'warning'}"></span>
+        </div>
+        <div class="stat-card-value">${ok ? '可用' : '未就绪'}</div>
+        <div class="stat-card-meta" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${out || '—'}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-header"><span class="stat-card-label">截图</span></div>
+        <div class="form-group" style="margin-top:8px">
+          <input class="form-input" id="browser-shot-url" placeholder="https://example.com" value="https://example.com" />
+        </div>
+        <div class="stat-card-meta">输出会显示在下方日志区</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" data-action="browser-status">状态</button>
+      <button class="btn btn-primary btn-sm" data-action="browser-start">启动</button>
+      <button class="btn btn-danger btn-sm" data-action="browser-stop">停止</button>
+      <button class="btn btn-secondary btn-sm" data-action="browser-install">安装指引</button>
+      <button class="btn btn-primary btn-sm" data-action="browser-shot">获取截图</button>
+    </div>
+    <pre id="browser-log" class="log-viewer" style="max-height:240px"></pre>
+  `
+}
+
+function browserAppendLog(page, text) {
+  const pre = page.querySelector('#browser-log')
+  if (!pre) return
+  pre.textContent = (pre.textContent ? pre.textContent + '\n' : '') + String(text || '')
+}
+
 // ===== 事件绑定 =====
 
 function bindEvents(page) {
@@ -199,6 +255,34 @@ function bindEvents(page) {
     const btn = e.target.closest('[data-action]')
     if (!btn) return
     const action = btn.dataset.action
+
+    if (action && action.startsWith('browser-')) {
+      try {
+        if (action === 'browser-status') {
+          const st = await api.browserStatus()
+          browserAppendLog(page, st.output || JSON.stringify(st))
+          await loadBrowser(page)
+        } else if (action === 'browser-start') {
+          const r = await api.browserStart()
+          browserAppendLog(page, r.output || JSON.stringify(r))
+          await loadBrowser(page)
+        } else if (action === 'browser-stop') {
+          const r = await api.browserStop()
+          browserAppendLog(page, r.output || JSON.stringify(r))
+          await loadBrowser(page)
+        } else if (action === 'browser-install') {
+          const r = await api.browserInstall()
+          browserAppendLog(page, r.message || JSON.stringify(r))
+        } else if (action === 'browser-shot') {
+          const url = page.querySelector('#browser-shot-url')?.value?.trim()
+          const r = await api.browserScreenshot(url)
+          browserAppendLog(page, r.output || JSON.stringify(r))
+        }
+      } catch (e) {
+        browserAppendLog(page, '错误: ' + (e.message || e))
+      }
+      return
+    }
 
     switch (action) {
       case 'cftunnel-up':

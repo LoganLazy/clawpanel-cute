@@ -597,7 +597,7 @@ function bindEvents(page, nodeOk, detectState) {
         }
 
         // 发起后台任务（立即返回）
-        await api.upgradeOpenclaw(source)
+        await api.installOpenclaw(source)
         modal.appendLog('后台安装任务已启动，请等待完成...')
       } else {
         // Web 模式：同步等待
@@ -606,7 +606,7 @@ function bindEvents(page, nodeOk, detectState) {
           modal.appendLog(`设置 npm 镜像源: ${registry}`)
           try { await api.setNpmRegistry(registry) } catch {}
         }
-        const msg = await api.upgradeOpenclaw(source)
+        const msg = await api.installOpenclaw(source)
         modal.setDone(msg)
         toast('OpenClaw 安装成功', 'success')
         setTimeout(() => window.location.reload(), 1500)
