@@ -13,8 +13,7 @@ const NAV_ITEMS_FULL = [
     section: '概览',
     items: [
       { route: '/dashboard', label: '仪表盘', icon: 'dashboard' },
-      { route: '/assistant', label: '晴辰助手', icon: 'assistant' },
-      { route: '/chat', label: '实时聊天', icon: 'chat' },
+      { route: '/assistant', label: 'Girl Star', icon: 'assistant' },
       { route: '/services', label: '服务管理', icon: 'services' },
       { route: '/logs', label: '日志查看', icon: 'logs' },
     ]
@@ -59,9 +58,7 @@ const NAV_ITEMS_SETUP = [
     section: '',
     items: [
       { route: '/setup', label: '初始设置', icon: 'setup' },
-      { route: '/assistant', label: '晴辰助手', icon: 'assistant' },
-    ]
-  },
+      { route: '/assistant', label: 'Girl Star', icon: 'assistant' },
   {
     section: '',
     items: [
@@ -118,9 +115,9 @@ export function renderSidebar(el) {
   let html = `
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <img src="/images/logo.png" alt="ClawPanel">
+        <img src="/images/logo.png" alt="ClawStar">
       </div>
-      <span class="sidebar-title">ClawPanel</span>
+      <span class="sidebar-title">ClawStar</span>
       <button class="sidebar-close-btn" id="btn-sidebar-close" title="关闭菜单">&times;</button>
     </div>
     ${showSwitcher ? `<div class="instance-switcher" id="instance-switcher">
@@ -324,7 +321,7 @@ async function _showAddInstanceDialog(sidebarEl) {
         <input class="form-input" id="inst-gw-port" type="number" value="18789" />
       </div>
       <div class="docker-dialog-hint">
-        远程服务器需要运行 ClawPanel (serve.js)。<br/>
+        远程服务器需要运行 ClawStar (serve.js)。<br/>
         示例: <code>http://192.168.1.100:1420</code>
       </div>
       <div id="inst-add-error" style="color:var(--error);font-size:12px;margin-top:var(--space-sm)"></div>

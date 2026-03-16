@@ -109,7 +109,7 @@ function renderSkills(el, data) {
     <div class="clawhub-panel" style="margin-bottom:var(--space-lg)">
       <div class="clawhub-panel-title" style="color:var(--warning);display:flex;align-items:center;gap:var(--space-sm)">
         <span>✗ 缺少依赖 (${missing.length})</span>
-        <button class="btn btn-secondary btn-sm" data-action="skill-ai-fix" style="font-size:var(--font-size-xs);padding:2px 8px">让 AI 助手帮我安装</button>
+        <button class="btn btn-secondary btn-sm" data-action="skill-ai-fix" style="font-size:var(--font-size-xs);padding:2px 8px">让 Girl Star帮我安装</button>
       </div>
       <div class="clawhub-list skills-scroll-area skills-installed-scroll" id="skills-missing">
         ${missing.map(s => renderSkillCard(s, 'missing')).join('')}

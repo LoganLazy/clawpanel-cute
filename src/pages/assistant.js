@@ -1,5 +1,5 @@
 /**
- * AI 助手页面
+ * Girl Star页面
  * 独立模型配置，不依赖 OpenClaw
  * 支持：流式响应、Markdown 渲染、会话管理、日志分析、上下文注入
  */
@@ -86,33 +86,33 @@ function apiKeyPlaceholder(apiType) {
 }
 
 // ── 系统提示词 ──
-const DEFAULT_NAME = '晴辰助手'
+const DEFAULT_NAME = 'Girl Star'
 const DEFAULT_PERSONALITY = '专业、友善、简洁。善于分析问题，给出可操作的解决方案。'
 
 function getSystemPromptBase() {
   const name = _config?.assistantName || DEFAULT_NAME
   const personality = _config?.assistantPersonality || DEFAULT_PERSONALITY
-  return `你是「${name}」，ClawPanel 内置的 AI 智能助手。
+  return `你是「${name}」，ClawStar 内置的 AI 智能助手。
 
 ## 你的性格
 ${personality}
 
 ## 你是谁
-- 你是 ClawPanel 内置的智能助手
+- 你是 ClawStar 内置的智能助手
 - 你帮助用户管理和排障 OpenClaw AI Agent 平台
 - 你精通 OpenClaw 的架构、配置、Gateway、Agent 管理等所有方面
 - 你善于分析日志、诊断错误、提供解决方案
 
 ## 相关资源
-- **ClawPanel 官网**: https://claw.qt.cool
+- **ClawStar 官网**: https://claw.qt.cool
 - **GitHub**: https://github.com/qingchencloud
 - **开源项目**:
-  - **ClawPanel** — OpenClaw 可视化管理面板（Tauri v2）
+  - **ClawStar** — OpenClaw 可视化管理面板（Tauri v2）
   - **OpenClaw 汉化版** — AI Agent 平台中文版，npm install -g @qingchencloud/openclaw-zh
 
-## ClawPanel 是什么
+## ClawStar 是什么
 - OpenClaw 的可视化管理面板，基于 Tauri v2 的跨平台桌面应用（Windows/macOS/Linux）
-- 支持仪表盘监控、模型配置、Agent 管理、实时聊天、记忆文件管理、AI 助手工具调用等
+- 支持仪表盘监控、模型配置、Agent 管理、实时聊天、记忆文件管理、Girl Star工具调用等
 - 官网: https://claw.qt.cool | GitHub: https://github.com/qingchencloud/clawpanel
 
 ## OpenClaw 是什么
@@ -160,25 +160,25 @@ ${personality}
 ## 关键配置结构
 - openclaw.json: 全局配置（models.providers、gateway、tools）
 - models.json: Agent 运行时模型注册表（~/.openclaw/agents/<id>/agent/models.json）
-- clawpanel.json: ClawPanel 自身配置（~/.openclaw/clawpanel.json）
+- clawpanel.json: ClawStar 自身配置（~/.openclaw/clawpanel.json）
 - gateway.mode: "local"（必须在 gateway 对象内，不能在顶层）
 - gateway.port: 默认 18789
 - gateway.auth.mode: "none" | "token" | "password"
 
 ## 常见问题速查
-1. **Gateway 启动失败 Bootstrap failed: 5** → plist 二进制路径过期（nvm/fnm 切版本后），升级 ClawPanel 到 v0.4.8+ 自动回退 CLI 启动
+1. **Gateway 启动失败 Bootstrap failed: 5** → plist 二进制路径过期（nvm/fnm 切版本后），升级 ClawStar 到 v0.4.8+ 自动回退 CLI 启动
 2. **Unrecognized key: "mode"** → mode 字段不能放在顶层，必须在 gateway.mode，升级到 v0.4.6+ 自动修复
 3. **fnm 管理的 Node.js 检测不到** → 升级到 v0.4.7+，已支持 FNM_DIR/node-versions 扫描
-4. **models.json 不同步** → ClawPanel 改了 openclaw.json 但 Gateway 用的 models.json 未更新，重启 Gateway 或执行 openclaw config apply
+4. **models.json 不同步** → ClawStar 改了 openclaw.json 但 Gateway 用的 models.json 未更新，重启 Gateway 或执行 openclaw config apply
 5. **WebSocket 连接失败** → 检查 gateway.controlUi.allowedOrigins 是否包含 ["*"]
 6. **SIGTERM 循环** → com.openclaw.healthcheck 服务异常，禁用: launchctl bootout gui/$(id -u)/com.openclaw.healthcheck
-7. **BOM 导致 JSON 解析失败** → PowerShell Set-Content 会加 BOM，ClawPanel 已自动剥离
+7. **BOM 导致 JSON 解析失败** → PowerShell Set-Content 会加 BOM，ClawStar 已自动剥离
 
 ## 生态项目安装指引
 当用户问到如何安装其他产品时，推荐以下安装方式：
 - **OpenClaw 汉化版**: npm install -g @qingchencloud/openclaw-zh（推荐国内用户）
 - **OpenClaw 官方版**: npm install -g openclaw
-- **ClawPanel**: 从 https://github.com/qingchencloud/clawpanel/releases 下载
+- **ClawStar**: 从 https://github.com/qingchencloud/clawpanel/releases 下载
 - **更多项目**: 访问 https://github.com/qingchencloud
 
 ## 社区贡献指引
@@ -186,7 +186,7 @@ ${personality}
 
 ### 提交 Issue
 引导用户到对应仓库提交 Issue，帮用户整理好格式：
-- **ClawPanel**: https://github.com/qingchencloud/clawpanel/issues/new
+- **ClawStar**: https://github.com/qingchencloud/clawpanel/issues/new
 - **OpenClaw 汉化版**: https://github.com/qingchencloud/openclaw-zh/issues/new
 
 Issue 模板（帮用户填好）：
@@ -195,7 +195,7 @@ Issue 模板（帮用户填好）：
 **复现步骤**: 1. ... 2. ... 3. ...
 **期望行为**: ...
 **实际行为**: ...
-**环境信息**: OS / ClawPanel 版本 / OpenClaw 版本
+**环境信息**: OS / ClawStar 版本 / OpenClaw 版本
 **截图/日志**: （如有）
 \`\`\`
 
@@ -581,7 +581,7 @@ const BUILTIN_SKILLS = [
 4. 对于 main Agent，列出 ~/.openclaw/agents/main/agent/ 子目录
 5. 简要说明每个目录/文件的作用：
    - openclaw.json: 全局配置（模型、Gateway、工具）
-   - clawpanel.json: ClawPanel 面板配置
+   - clawpanel.json: ClawStar 面板配置
    - mcp.json: MCP 工具配置
    - agents/: Agent 工作目录
    - logs/: 日志文件
@@ -657,7 +657,7 @@ const BUILTIN_SKILLS = [
    - **环境信息**（自动填充）
    - **相关日志**（如有）
 6. 用代码块展示完整 Issue 内容，给出对应仓库的 Issue 链接：
-   - ClawPanel: https://github.com/qingchencloud/clawpanel/issues/new
+   - ClawStar: https://github.com/qingchencloud/clawpanel/issues/new
    - OpenClaw: https://github.com/qingchencloud/openclaw-zh/issues/new
 `,
   },
@@ -862,8 +862,8 @@ function buildSystemPrompt() {
         prompt += `## ${m.date}\n${content}\n\n`
       }
     }
-    // 追加 ClawPanel 特有的产品知识和工具说明
-    prompt += '\n# ClawPanel 工具能力\n你同时是 ClawPanel 内置助手，拥有以下额外能力：\n'
+    // 追加 ClawStar 特有的产品知识和工具说明
+    prompt += '\n# ClawStar 工具能力\n你同时是 ClawStar 内置助手，拥有以下额外能力：\n'
     prompt += '- 执行终端命令、读写文件、浏览目录\n'
     prompt += '- 联网搜索和网页抓取\n'
     prompt += '- 管理 OpenClaw 配置和服务\n'
@@ -2632,7 +2632,7 @@ function showSettings() {
             <div style="display:flex;flex-direction:column;gap:6px">
               <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
                 <input type="radio" name="ast-soul-source" value="default" ${!c.soulSource || c.soulSource === 'default' ? 'checked' : ''}>
-                <span>ClawPanel 默认人设</span>
+                <span>ClawStar 默认人设</span>
               </label>
               <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
                 <input type="radio" name="ast-soul-source" value="openclaw" ${c.soulSource?.startsWith('openclaw:') ? 'checked' : ''}>
@@ -2672,7 +2672,7 @@ function showSettings() {
                 选择 Agent 后点击「加载灵魂」读取身份文件
               </div>
             </div>
-            <div class="form-hint" style="margin-top:8px">附身后助手将继承 Agent 的人格、记忆和用户偏好，同时保留 ClawPanel 的工具能力。</div>
+            <div class="form-hint" style="margin-top:8px">附身后助手将继承 Agent 的人格、记忆和用户偏好，同时保留 ClawStar 的工具能力。</div>
           </div>
         </div>
         <div class="ast-tab-panel" data-panel="knowledge">
@@ -3822,7 +3822,7 @@ function getAssistantGuideHtml() {
     <div class="ast-page-guide" id="ast-page-guide">
       <div class="ast-guide-badge">内置 AI</div>
       <div class="ast-guide-text">
-        <b>这是 ClawPanel 内置的 AI 助手</b>，独立于 OpenClaw，使用你在右上角「设置」中配置的 API。
+        <b>这是 ClawStar 内置的 Girl Star</b>，独立于 OpenClaw，使用你在右上角「设置」中配置的 API。
         <span style="opacity:0.6">如需与 OpenClaw Agent 对话，请前往「实时聊天」页面。</span>
       </div>
       <button class="ast-guide-close" onclick="localStorage.setItem('${AST_GUIDE_KEY}','1');this.closest('.ast-page-guide').remove()">&times;</button>
@@ -3904,7 +3904,7 @@ export async function render() {
           <textarea class="ast-textarea" id="ast-textarea" placeholder="描述你的问题，粘贴日志、截图或错误信息..." rows="1"></textarea>
           <button class="ast-send-btn" id="ast-send-btn" title="发送">${sendIcon()}</button>
         </div>
-        <div class="ast-input-hint">Enter 发送 · Shift+Enter 换行 · 支持粘贴/拖拽图片 · AI 助手独立于 OpenClaw</div>
+        <div class="ast-input-hint">Enter 发送 · Shift+Enter 换行 · 支持粘贴/拖拽图片 · Girl Star 独立于 OpenClaw</div>
       </div>
     </div>
   `

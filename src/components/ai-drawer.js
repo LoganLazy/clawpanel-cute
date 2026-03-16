@@ -53,7 +53,7 @@ export function openAIDrawerWithError(errorCtx) {
       _fab.el.classList.add('has-error')
     } else {
       import('./toast.js')
-        .then(({ toast }) => toast('已保存诊断上下文，可从侧边栏进入「晴辰助手」继续处理', 'info'))
+        .then(({ toast }) => toast('已保存诊断上下文，可从侧边栏进入「Girl Star」继续处理', 'info'))
         .catch(() => {})
     }
   } else {
@@ -71,7 +71,7 @@ function truncate(str, max) {
 function createFab() {
   const fab = document.createElement('button')
   fab.className = 'ai-fab'
-  fab.title = 'AI 助手'
+  fab.title = 'Girl Star'
   fab.innerHTML = BOT_ICON
   document.body.appendChild(fab)
 

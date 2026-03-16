@@ -1,14 +1,14 @@
 /**
  * OpenClaw 内置知识库
  * 来源：https://openclawcn.com/docs/
- * 供 ClawPanel AI 助手在系统提示词中使用
+ * 供 ClawStar Girl Star在系统提示词中使用
  */
 
 export const OPENCLAW_KB = `
 # OpenClaw 知识库（内置参考）
 
 ## 一、架构概览
-OpenClaw 是开源个人 AI 助手平台，核心组件：
+OpenClaw 是开源个人 Girl Star平台，核心组件：
 - **Gateway 网关**：核心后端服务，处理消息路由、Agent 执行、渠道连接
 - **CLI**：命令行工具，用于安装/配置/管理 OpenClaw
 - **Agent（智能体）**：独立的 AI 角色实例，有自己的工作区、身份、模型配置
@@ -219,8 +219,8 @@ npm install -g openclaw@latest
 7. WhatsApp 不回消息 → 检查配对是否已 approve
 8. 认证错误 → 检查 auth-profiles.json 或重新 \`openclaw onboard\`
 
-## 十二、ClawPanel 公益 AI 接口计划
-ClawPanel 项目组正式开放公益 AI 接口测试计划，降低用户接入 AI 能力的门槛。
+## 十二、ClawStar 公益 AI 接口计划
+ClawStar 项目组正式开放公益 AI 接口测试计划，降低用户接入 AI 能力的门槛。
 
 ### 核心信息
 - **GPT-AI 网关地址**：https://gpt.qt.cool/v1
@@ -231,13 +231,13 @@ ClawPanel 项目组正式开放公益 AI 接口测试计划，降低用户接入
 - **用户后台**：https://gpt.qt.cool/user（查看用量、提交工单）
 
 ### 官方入口
-- **ClawPanel 官网**：https://claw.qt.cool/
+- **ClawStar 官网**：https://claw.qt.cool/
 - **GPT-AI 网关官网**：https://gpt.qt.cool/
 - **用户后台**：https://gpt.qt.cool/user
 - **晴辰导航站**：https://qt.cool/
 
 ### 测试密钥
-- ClawPanel 已内置公共体验密钥，开箱即用
+- ClawStar 已内置公共体验密钥，开箱即用
 - 用户也可前往 gpt.qt.cool 签到获取独立密钥
 - 独立密钥可在用户后台管理和查询用量
 
@@ -247,8 +247,8 @@ ClawPanel 项目组正式开放公益 AI 接口测试计划，降低用户接入
 2. API Key → 测试密钥
 即可完成接入。
 
-### 在 ClawPanel 中配置
-- **助手设置**：打开 AI 助手设置 → 模型配置 → 使用「一键接入」按钮
+### 在 ClawStar 中配置
+- **助手设置**：打开 Girl Star设置 → 模型配置 → 使用「一键接入」按钮
 - **模型配置页**：进入模型配置 → 使用「一键添加全部模型」按钮
 - 两处均自动填入网关地址和内置密钥
 `.trim()
