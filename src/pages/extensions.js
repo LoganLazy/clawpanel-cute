@@ -238,6 +238,9 @@ function renderBrowser(el, s) {
       <button class="btn btn-secondary btn-sm" data-action="browser-install">安装指引</button>
       <button class="btn btn-primary btn-sm" data-action="browser-shot">获取截图</button>
     </div>
+    <div class="form-hint" style="margin-bottom:var(--space-sm)">
+      安装步骤：打开浏览器 → 访问 Control UI → 点击工具栏 OpenClaw 扩展 → 允许连接。
+    </div>
     <pre id="browser-log" class="log-viewer" style="max-height:240px"></pre>
   `
 }
@@ -276,7 +279,16 @@ function bindEvents(page) {
         } else if (action === 'browser-shot') {
           const url = page.querySelector('#browser-shot-url')?.value?.trim()
           const r = await api.browserScreenshot(url)
-          browserAppendLog(page, r.output || JSON.stringify(r))
+          if (r?.image) {
+            const img = `data:image/png;base64,${r.image}`
+            browserAppendLog(page, '截图完成')
+            const log = page.querySelector('#browser-log')
+            if (log) {
+              log.insertAdjacentHTML('beforebegin', `<img src="${img}" alt="screenshot" style="max-width:100%;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:var(--space-sm)" />`)
+            }
+          } else {
+            browserAppendLog(page, r.output || JSON.stringify(r))
+          }
         }
       } catch (e) {
         browserAppendLog(page, '错误: ' + (e.message || e))

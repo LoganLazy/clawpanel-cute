@@ -598,6 +598,7 @@ pub fn browser_install() -> Result<serde_json::Value, String> {
 
 #[tauri::command]
 pub fn browser_screenshot(url: Option<String>) -> Result<serde_json::Value, String> {
+    use base64::Engine;
     let target = url.unwrap_or_else(|| "https://example.com".to_string());
     let output = crate::utils::openclaw_command()
         .args(["browser", "screenshot", &target])
@@ -606,7 +607,34 @@ pub fn browser_screenshot(url: Option<String>) -> Result<serde_json::Value, Stri
         Ok(o) => {
             let text = String::from_utf8_lossy(&o.stdout).to_string()
                 + &String::from_utf8_lossy(&o.stderr);
-            Ok(serde_json::json!({"ok": o.status.success(), "output": text}))
+            if !o.status.success() {
+                return Ok(serde_json::json!({"ok": false, "output": text}));
+            }
+            // 从输出中提取 MEDIA 路径
+            let mut media_path = None;
+            for line in text.lines() {
+                if let Some(pos) = line.find("MEDIA:") {
+                    media_path = Some(line[pos + 6..].trim().to_string());
+                    break;
+                }
+            }
+            if let Some(path) = media_path {
+                match std::fs::read(&path) {
+                    Ok(bytes) => {
+                        let b64 = base64::engine::general_purpose::STANDARD.encode(bytes);
+                        return Ok(serde_json::json!({
+                            "ok": true,
+                            "output": text,
+                            "image": b64,
+                            "path": path,
+                        }));
+                    }
+                    Err(e) => {
+                        return Ok(serde_json::json!({"ok": false, "output": format!("读取截图失败: {e}") }));
+                    }
+                }
+            }
+            Ok(serde_json::json!({"ok": true, "output": text}))
         }
         Err(e) => Err(format!("执行失败: {e}")),
     }
