@@ -7,7 +7,7 @@ echo "  在 Linux 上通过浏览器管理 OpenClaw"
 echo "=========================================="
 echo ""
 
-PANEL_PORT=1420
+PANEL_PORT=1450
 REPO_URL="https://github.com/qingchencloud/clawpanel.git"
 REPO_URL_GITEE="https://gitee.com/QtCodeCreators/clawpanel.git"
 NPM_REGISTRY="https://registry.npmmirror.com"
