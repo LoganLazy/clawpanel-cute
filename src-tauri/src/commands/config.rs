@@ -30,7 +30,7 @@ impl Drop for GuardianPause {
 }
 
 /// 预设 npm 源列表
-const DEFAULT_REGISTRY: &str = "https://registry.npmmirror.com";
+const DEFAULT_REGISTRY: &str = "https://registry.npmjs.org";
 /// (target_https_prefix, from_pattern) pairs for Git HTTPS rewriting.
 /// Each entry maps a non-HTTPS Git URL pattern to the corresponding HTTPS URL.
 const GIT_HTTPS_REWRITES: &[(&str, &str)] = &[
