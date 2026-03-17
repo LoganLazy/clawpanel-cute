@@ -222,6 +222,7 @@ function renderBrowser(el, s) {
         </div>
         <div class="stat-card-value">${ok ? '可用' : '未就绪'}</div>
         <div class="stat-card-meta" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${out || '—'}</div>
+        ${ok ? '' : '<div class="form-hint" style="margin-top:6px">浏览器未启动，点击「启动」即可</div>'}
       </div>
       <div class="stat-card">
         <div class="stat-card-header"><span class="stat-card-label">截图</span></div>
@@ -281,10 +282,10 @@ function bindEvents(page) {
           const r = await api.browserScreenshot(url)
           if (r?.image) {
             const img = `data:image/png;base64,${r.image}`
-            browserAppendLog(page, '截图完成')
+            browserAppendLog(page, '截图完成（点击图片可放大）')
             const log = page.querySelector('#browser-log')
             if (log) {
-              log.insertAdjacentHTML('beforebegin', `<img src="${img}" alt="screenshot" style="max-width:100%;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:var(--space-sm)" />`)
+              log.insertAdjacentHTML('beforebegin', `<a href="${img}" target="_blank" rel="noopener"><img src="${img}" alt="screenshot" style="max-width:100%;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:var(--space-sm)" /></a>`)
             }
           } else {
             browserAppendLog(page, r.output || JSON.stringify(r))

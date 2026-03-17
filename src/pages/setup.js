@@ -334,6 +334,7 @@ function renderInstallSection() {
       </select>
     </div>
     <button class="btn btn-primary btn-sm" id="btn-install">一键安装</button>
+    <div class="form-hint" style="margin-top:8px">推荐稳定版安装通常需要 2-5 分钟，受网络与 npm 镜像影响。</div>
     ${envHint}
   `
 }
