@@ -310,17 +310,17 @@ function renderInstallSection() {
     </p>
     <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-sm)">
       <label class="setup-source-option" style="flex:1;cursor:pointer">
-        <input type="radio" name="install-source" value="chinese" checked style="margin-right:6px">
+        <input type="radio" name="install-source" value="official" checked style="margin-right:6px">
         <div>
-          <div style="font-weight:600;font-size:var(--font-size-sm)">汉化优化版（推荐）</div>
-          <div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">@qingchencloud/openclaw-zh</div>
+          <div style="font-weight:600;font-size:var(--font-size-sm)">官方原版（推荐）</div>
+          <div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">openclaw</div>
         </div>
       </label>
       <label class="setup-source-option" style="flex:1;cursor:pointer">
-        <input type="radio" name="install-source" value="official" style="margin-right:6px">
+        <input type="radio" name="install-source" value="chinese" style="margin-right:6px">
         <div>
-          <div style="font-weight:600;font-size:var(--font-size-sm)">官方原版</div>
-          <div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">openclaw</div>
+          <div style="font-weight:600;font-size:var(--font-size-sm)">中文优化版</div>
+          <div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">openclaw-cn</div>
         </div>
       </label>
     </div>
@@ -506,7 +506,7 @@ function bindEvents(page, nodeOk, detectState) {
   if (!installBtn || !nodeOk) return
 
   installBtn.addEventListener('click', async () => {
-    const source = page.querySelector('input[name="install-source"]:checked')?.value || 'chinese'
+    const source = page.querySelector('input[name="install-source"]:checked')?.value || 'official'
     const registry = page.querySelector('#registry-select')?.value
     const modal = showUpgradeModal('安装 OpenClaw')
     let unlistenLog, unlistenProgress
