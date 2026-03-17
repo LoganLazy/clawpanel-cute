@@ -59,6 +59,8 @@ const NAV_ITEMS_SETUP = [
     items: [
       { route: '/setup', label: '初始设置', icon: 'setup' },
       { route: '/assistant', label: 'Girl Star', icon: 'assistant' },
+    ]
+  },
   {
     section: '',
     items: [

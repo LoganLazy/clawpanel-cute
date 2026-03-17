@@ -272,11 +272,20 @@ body::after {
   cursor: pointer;
   transition: all var(--transition-fast);
   user-select: none;
+  border: 1px solid transparent;
 }
 
 .nav-item:hover {
   background: var(--bg-glass-hover);
   color: var(--text-primary);
+  border-color: rgba(236, 72, 153, 0.2);
+  box-shadow: 0 8px 16px rgba(236, 72, 153, 0.12);
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.22), rgba(244, 114, 182, 0.08));
+  border-color: rgba(236, 72, 153, 0.35);
+  box-shadow: 0 10px 18px rgba(236, 72, 153, 0.18);
 }
 
 
