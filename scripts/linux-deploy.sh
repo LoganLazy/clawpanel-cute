@@ -276,7 +276,7 @@ main() {
     echo ""
     install_git
     install_node
-    install_openclaw
+    # install_openclaw  # 只装面板（不自动安装 OpenClaw）
     install_clawpanel
     setup_default_password
     setup_systemd
