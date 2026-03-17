@@ -14,8 +14,8 @@ export async function render() {
   page.className = 'page'
 
   page.innerHTML = `
-    <div style="max-width:560px;margin:48px auto;text-align:center">
-      <div style="margin-bottom:var(--space-lg)">
+    <div class="setup-center" style="text-align:center">
+      <div style="display:flex;justify-content:center;margin-bottom:var(--space-lg)">
         <img src="/images/clawstar-logo.svg" alt="ClawStar" style="max-width:160px;width:100%;height:auto">
       </div>
       <h1 style="font-size:var(--font-size-xl);margin-bottom:var(--space-xs)">欢迎使用 ClawStar</h1>
@@ -101,7 +101,7 @@ function renderSteps(page, { node, git, cliOk, config, version }) {
 
   // 第一步：Node.js
   html += `
-    <div class="config-section" style="text-align:left">
+    <div class="config-section" style="text-align:left;max-width:720px;margin-left:auto;margin-right:auto">
       <div class="config-section-title" style="display:flex;align-items:center;gap:4px">
         ${stepIcon(nodeOk)} Node.js 环境
       </div>
@@ -136,7 +136,7 @@ function renderSteps(page, { node, git, cliOk, config, version }) {
 
   // 第二步：Git
   html += `
-    <div class="config-section" style="text-align:left;${nodeOk ? '' : 'opacity:0.4;pointer-events:none'}">
+    <div class="config-section" style="text-align:left;max-width:720px;margin-left:auto;margin-right:auto;${nodeOk ? '' : 'opacity:0.4;pointer-events:none'}">
       <div class="config-section-title" style="display:flex;align-items:center;gap:4px">
         ${stepIcon(gitOk)} Git 版本管理
       </div>
@@ -160,7 +160,7 @@ function renderSteps(page, { node, git, cliOk, config, version }) {
 
   // 第三步：OpenClaw CLI
   html += `
-    <div class="config-section" style="text-align:left;${nodeOk ? '' : 'opacity:0.4;pointer-events:none'}">
+    <div class="config-section" style="text-align:left;max-width:720px;margin-left:auto;margin-right:auto;${nodeOk ? '' : 'opacity:0.4;pointer-events:none'}">
       <div class="config-section-title" style="display:flex;align-items:center;gap:4px">
         ${stepIcon(cliOk)} OpenClaw CLI
       </div>
@@ -177,7 +177,7 @@ function renderSteps(page, { node, git, cliOk, config, version }) {
   `
   // 第四步：配置文件
   html += `
-    <div class="config-section" style="text-align:left;${cliOk ? '' : 'opacity:0.4;pointer-events:none'}">
+    <div class="config-section" style="text-align:left;max-width:720px;margin-left:auto;margin-right:auto;${cliOk ? '' : 'opacity:0.4;pointer-events:none'}">
       <div class="config-section-title" style="display:flex;align-items:center;gap:4px">
         ${stepIcon(config.installed)} 配置文件
       </div>
@@ -193,7 +193,7 @@ function renderSteps(page, { node, git, cliOk, config, version }) {
 
   // Girl Star入口
   html += `
-    <div class="config-section" style="text-align:left;margin-top:var(--space-md)">
+    <div class="config-section" style="text-align:left;margin-top:var(--space-md);max-width:720px;margin-left:auto;margin-right:auto">
       <div class="config-section-title" style="display:flex;align-items:center;gap:6px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
         Girl Star
@@ -217,7 +217,7 @@ function renderSteps(page, { node, git, cliOk, config, version }) {
   // 全部就绪 → 进入面板
   if (allOk) {
     html += `
-      <div class="config-section" style="text-align:left;margin-top:var(--space-md)">
+      <div class="config-section" style="text-align:left;margin-top:var(--space-md);max-width:720px;margin-left:auto;margin-right:auto">
         <div class="config-section-title">下一步建议</div>
         <div style="color:var(--text-secondary);font-size:var(--font-size-sm);line-height:1.7">
           当前仅表示运行环境已经就绪，并不代表已经可以直接聊天。通常还需要继续完成以下步骤：

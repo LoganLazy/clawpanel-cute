@@ -241,7 +241,7 @@ body::after {
   transition: color 0.2s;
 }
 .sidebar-link:hover {
-  color: var(--primary);
+  color: var(--accent);
 }
 .sidebar-version {
   color: var(--text-tertiary);
@@ -314,11 +314,37 @@ body::after {
   flex: 1;
   overflow-y: auto;
   background: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+}
+
+/* Setup 页面居中容器 */
+.setup-center {
+  width: min(92vw, 720px);
+  margin: clamp(24px, 5vw, 48px) auto;
+  padding: clamp(20px, 4vw, 32px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.setup-center img {
+  filter: drop-shadow(0 12px 24px rgba(249,168,212,0.35));
+}
+
+@media (max-width: 768px) {
+  .setup-center {
+    padding: clamp(16px, 4vw, 24px);
+    margin: clamp(16px, 4vw, 28px) auto;
+  }
 }
 
 .page {
   padding: var(--space-xl) var(--space-2xl);
   max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   animation: pageIn 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -568,6 +594,7 @@ body::after {
   }
   .page {
     padding: var(--space-lg) var(--space-lg);
+    margin: 0 auto;
   }
   .page-title {
     font-size: var(--font-size-xl);
@@ -594,5 +621,6 @@ body::after {
 @media (max-width: 480px) {
   .page {
     padding: var(--space-md) var(--space-md);
+    margin: 0 auto;
   }
 }

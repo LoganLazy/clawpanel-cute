@@ -1,25 +1,28 @@
 /* 亮色主题（默认） */
 :root, [data-theme="light"] {
-  --bg-primary: #fff7fb;
-  --bg-secondary: rgba(255, 255, 255, 0.78);
-  --bg-tertiary: rgba(255, 234, 244, 0.7);
+  --bg-primary: #fff9fc;
+  --bg-secondary: rgba(255, 255, 255, 0.8);
+  --bg-tertiary: rgba(255, 230, 243, 0.75);
   --bg-card: rgba(255, 255, 255, 0.65);
   --bg-card-hover: rgba(255, 255, 255, 0.78);
   --bg-glass: rgba(255, 255, 255, 0.45);
   --bg-glass-hover: rgba(255, 255, 255, 0.6);
 
-  --border-primary: rgba(236, 72, 153, 0.18);
-  --border-secondary: rgba(236, 72, 153, 0.08);
-  --border-focus: rgba(244, 114, 182, 0.5);
+  --border-primary: rgba(236, 72, 153, 0.14);
+  --border-secondary: rgba(236, 72, 153, 0.06);
+  --border-focus: rgba(249, 168, 212, 0.6);
 
   --text-primary: #4a1d36;
   --text-secondary: #7a3b5c;
   --text-tertiary: #b26a8a;
   --text-inverse: #ffffff;
 
-  --accent: #f472b6;
-  --accent-hover: #ec4899;
-  --accent-muted: rgba(244, 114, 182, 0.16);
+  --accent: #f9a8d4;
+  --accent-hover: #f472b6;
+  --accent-muted: rgba(249, 168, 212, 0.2);
+
+  --primary: var(--accent);
+  --primary-bg: var(--accent-muted);
 
   --success: #34d399;
   --success-muted: rgba(52, 211, 153, 0.18);
@@ -30,10 +33,10 @@
   --info: #a855f7;
   --info-muted: rgba(168, 85, 247, 0.15);
 
-  --shadow-sm: 0 4px 10px rgba(244, 114, 182, 0.18);
-  --shadow-md: 0 10px 24px rgba(244, 114, 182, 0.22);
-  --shadow-lg: 0 20px 40px rgba(236, 72, 153, 0.25);
-  --shadow-glow: 0 0 24px rgba(244, 114, 182, 0.35);
+  --shadow-sm: 0 4px 10px rgba(249, 168, 212, 0.2);
+  --shadow-md: 0 10px 24px rgba(249, 168, 212, 0.24);
+  --shadow-lg: 0 20px 40px rgba(236, 72, 153, 0.22);
+  --shadow-glow: 0 0 24px rgba(249, 168, 212, 0.38);
 }
 
 /* 暗色主题 */
