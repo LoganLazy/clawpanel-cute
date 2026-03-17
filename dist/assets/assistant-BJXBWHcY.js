@@ -1,4 +1,4 @@
-import{r as ze}from"./markdown-Dx1V9SCT.js";import{a as C,t as Z,b as O,s as me}from"./index-CHo86jxB.js";import{showConfirm as pt}from"./modal-DK6Az47R.js";import{Q as $e,P as Mt,A as os,f as is}from"./model-presets-C_GYMLJU.js";const rs=`
+import{r as ze}from"./markdown-C0Tbm1tT.js";import{a as C,t as Z,b as O,s as me}from"./index-DJk5EKdb.js";import{showConfirm as pt}from"./modal-DK6Az47R.js";import{Q as $e,P as Mt,A as os,f as is}from"./model-presets-C_GYMLJU.js";const rs=`
 # OpenClaw 知识库（内置参考）
 
 ## 一、架构概览
