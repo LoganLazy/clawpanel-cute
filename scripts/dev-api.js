@@ -527,7 +527,7 @@ function checkPasswordStrength(pw) {
   if (!pw || pw.length < 6) return '密码至少 6 位'
   if (pw.length > 64) return '密码不能超过 64 位'
   if (/^\d+$/.test(pw)) return '密码不能是纯数字'
-  const weak = ['123456', '654321', 'password', 'admin', 'qwerty', 'abc123', '111111', '000000', 'letmein', 'welcome', 'clawpanel', 'openclaw']
+  const weak = ['claw520', '123456', '654321', 'password', 'admin', 'qwerty', 'abc123', '111111', '000000', 'letmein', 'welcome', 'clawpanel', 'openclaw']
   if (weak.includes(pw.toLowerCase())) return '密码太常见，请换一个更安全的密码'
   return null // 通过
 }
@@ -3858,13 +3858,21 @@ const handlers = {
   // === 访问密码认证 ===
   auth_check() {
     const pw = getAccessPassword()
-    return { required: !!pw, authenticated: false /* 由中间件覆写 */ }
+    const isDefault = pw === 'claw520'
+    const resp = {
+      required: !!pw,
+      authenticated: false /* 由中间件覆写 */,
+      username: 'admin',
+    }
+    if (isDefault) resp.defaultPassword = 'claw520'
+    return resp
   },
   auth_login() { throw new Error('由中间件处理') },
   auth_logout() { throw new Error('由中间件处理') },
   auth_set_password({ password }) {
     const cfg = readPanelConfig()
     cfg.accessPassword = password || ''
+    delete cfg.mustChangePassword
     fs.writeFileSync(PANEL_CONFIG_PATH, JSON.stringify(cfg, null, 2))
     // 清除所有 session（密码变更后强制重新登录）
     _sessions.clear()
@@ -3880,17 +3888,7 @@ const handlers = {
     const currentVersion = pkg.version
 
     try {
-      const resp = await globalThis.fetch('https://claw.qt.cool/update/latest.json', {
-        signal: AbortSignal.timeout(8000),
-        headers: { 'User-Agent': 'ClawPanel-Web' },
-      })
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
-      const manifest = await resp.json()
-      const latestVersion = manifest.version || ''
-      const minAppVersion = manifest.minAppVersion || '0.0.0'
-      const compatible = versionGe(currentVersion, minAppVersion)
-      const hasUpdate = !!latestVersion && latestVersion !== currentVersion && compatible && versionGt(latestVersion, currentVersion)
-      return { currentVersion, latestVersion, hasUpdate, compatible, updateReady: false, manifest }
+      return { currentVersion, latestVersion: currentVersion, hasUpdate: false, compatible: true, updateReady: false, manifest: { version: currentVersion } }
     } catch {
       return { currentVersion, latestVersion: currentVersion, hasUpdate: false, compatible: true, updateReady: false, manifest: { version: currentVersion } }
     }
@@ -3918,13 +3916,13 @@ const handlers = {
 function _initApi() {
   const cfg = readPanelConfig()
   if (!cfg.accessPassword && !cfg.ignoreRisk) {
-    cfg.accessPassword = '123456'
-    cfg.mustChangePassword = true
+    cfg.accessPassword = 'claw520'
+    cfg.mustChangePassword = false
     if (!fs.existsSync(OPENCLAW_DIR)) fs.mkdirSync(OPENCLAW_DIR, { recursive: true })
     fs.writeFileSync(PANEL_CONFIG_PATH, JSON.stringify(cfg, null, 2))
     invalidateConfigCache()
-    console.log('[api] ⚠️  首次启动，默认访问密码: 123456')
-    console.log('[api] ⚠️  首次登录后将强制要求修改密码')
+    console.log('[api] ⚠️  首次启动，默认访问密码: claw520')
+    console.log('[api] ⚠️  首次登录后建议修改密码')
   }
   const pw = getAccessPassword()
   console.log('[api] API 已启动，配置目录:', OPENCLAW_DIR)
@@ -3960,13 +3958,14 @@ async function _apiMiddleware(req, res, next) {
   if (cmd === 'auth_check') {
     const cfg = readPanelConfig()
     const pw = cfg.accessPassword || ''
-    const isDefault = pw === '123456'
+    const isDefault = pw === 'claw520'
     const resp = {
       required: !!pw,
       authenticated: !pw || isAuthenticated(req),
       mustChangePassword: isDefault,
+      username: 'admin',
     }
-    if (isDefault) resp.defaultPassword = '123456'
+    if (isDefault) resp.defaultPassword = 'claw520'
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(resp))
     return
@@ -3989,11 +3988,11 @@ async function _apiMiddleware(req, res, next) {
       res.end(JSON.stringify({ success: true }))
       return
     }
-    if (args.password !== pw) {
+    if ((args.username || 'admin') !== 'admin' || args.password !== pw) {
       recordLoginFailure(clientIp)
       res.statusCode = 401
       res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify({ error: '密码错误' }))
+      res.end(JSON.stringify({ error: '用户名或密码错误' }))
       return
     }
     clearLoginAttempts(clientIp)
@@ -4001,7 +4000,7 @@ async function _apiMiddleware(req, res, next) {
     _sessions.set(token, { expires: Date.now() + SESSION_TTL })
     res.setHeader('Set-Cookie', `clawpanel_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_TTL / 1000}`)
     res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify({ success: true, mustChangePassword: !!cfg.mustChangePassword }))
+    res.end(JSON.stringify({ success: true }))
     return
   }
 
@@ -4056,14 +4055,15 @@ async function _apiMiddleware(req, res, next) {
       res.end(JSON.stringify({ error: '未登录' }))
       return
     }
-    const isDefault = cfg.accessPassword === '123456'
+    const isDefault = cfg.accessPassword === 'claw520'
     const result = {
       hasPassword: !!cfg.accessPassword,
-      mustChangePassword: isDefault,
+      mustChangePassword: false,
       ignoreRisk: !!cfg.ignoreRisk,
+      username: 'admin',
     }
     if (isDefault) {
-      result.defaultPassword = '123456'
+      result.defaultPassword = 'claw520'
     }
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(result))

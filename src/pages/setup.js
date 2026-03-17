@@ -327,9 +327,8 @@ function renderInstallSection() {
     <div style="margin-bottom:var(--space-sm)">
       <label style="font-size:var(--font-size-xs);color:var(--text-tertiary);display:block;margin-bottom:4px">npm 镜像源</label>
       <select id="registry-select" style="width:100%;padding:6px 8px;border-radius:var(--radius-sm);border:1px solid var(--border-primary);background:var(--bg-secondary);color:var(--text-primary);font-size:var(--font-size-sm)">
-        <option value="https://registry.npmmirror.com">淘宝镜像（推荐国内用户）</option>
-        <option value="https://registry.npmjs.org">npm 官方源</option>
-        <option value="https://repo.huaweicloud.com/repository/npm/">华为云镜像</option>
+        <option value="https://registry.npmjs.org">npm 官方源（默认）</option>
+        <option value="https://registry.npmmirror.com">淘宝镜像（可选）</option>
       </select>
     </div>
     <button class="btn btn-primary btn-sm" id="btn-install">一键安装</button>

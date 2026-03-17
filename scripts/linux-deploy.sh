@@ -260,14 +260,14 @@ setup_default_password() {
         fi
     fi
 
-    DEFAULT_PASSWORD="123456"
+    DEFAULT_PASSWORD="claw520"
     cat > "$config_file" <<EOF
 {
-  "accessPassword": "123456",
+  "accessPassword": "claw520",
   "mustChangePassword": true
 }
 EOF
-    echo "✅ 已设置默认访问密码: 123456"
+    echo "✅ 已设置默认访问密码: claw520"
 }
 
 # 主流程

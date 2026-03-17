@@ -88,8 +88,7 @@ function showBackendDownOverlay() {
       </button>
       <div id="backend-retry-status" style="font-size:12px;color:var(--text-tertiary);margin-top:12px"></div>
       <div style="margin-top:16px;font-size:11px;color:#aaa">
-        <a href="https://claw.qt.cool" target="_blank" rel="noopener" style="color:#aaa;text-decoration:none">claw.qt.cool</a>
-        <span style="margin:0 6px">&middot;</span>v${APP_VERSION}
+        v${APP_VERSION}
       </div>
     </div>
   `
@@ -159,7 +158,8 @@ function showLoginOverlay(defaultPw) {
         ? '首次使用，默认密码已自动填充<br><span style="font-size:12px;color:#6366f1;font-weight:600">登录后请前往「安全设置」修改密码</span>'
         : (isTauri ? '应用已锁定，请输入密码' : '请输入访问密码')}</div>
       <form id="login-form">
-        <input class="login-input" type="${hasDefault ? 'text' : 'password'}" id="login-pw" placeholder="访问密码" autocomplete="current-password" autofocus value="${hasDefault ? defaultPw : ''}" />
+        <input class="login-input" type="text" id="login-username" placeholder="用户名" autocomplete="username" value="admin" readonly />
+        <input class="login-input" type="${hasDefault ? 'text' : 'password'}" id="login-pw" placeholder="密码" autocomplete="current-password" autofocus value="${hasDefault ? defaultPw : ''}" />
         <div id="login-captcha" style="display:${_captcha ? 'block' : 'none'};margin-bottom:10px">
           <div style="font-size:12px;color:#888;margin-bottom:6px">请先完成验证：<strong id="captcha-q" style="color:var(--text-primary,#333)">${_captcha ? _captcha.q : ''}</strong></div>
           <input class="login-input" type="number" id="login-captcha-input" placeholder="输入计算结果" style="text-align:center" />
@@ -177,8 +177,7 @@ function showLoginOverlay(defaultPw) {
         </div>
       </details>` : ''}
       <div style="margin-top:${hasDefault ? '20' : '12'}px;font-size:11px;color:#aaa;text-align:center">
-        <a href="https://claw.qt.cool" target="_blank" rel="noopener" style="color:#aaa;text-decoration:none">claw.qt.cool</a>
-        <span style="margin:0 6px">·</span>v${APP_VERSION}
+        v${APP_VERSION}
       </div>
     </div>
   `
@@ -188,6 +187,7 @@ function showLoginOverlay(defaultPw) {
   return new Promise((resolve) => {
     overlay.querySelector('#login-form').addEventListener('submit', async (e) => {
       e.preventDefault()
+      const username = overlay.querySelector('#login-username')?.value || 'admin'
       const pw = overlay.querySelector('#login-pw').value
       const btn = overlay.querySelector('.login-btn')
       const errEl = overlay.querySelector('#login-error')
@@ -213,7 +213,7 @@ function showLoginOverlay(defaultPw) {
           // 桌面端：本地比对密码
           const { api } = await import('./lib/tauri-api.js')
           const cfg = await api.readPanelConfig()
-          if (pw !== cfg.accessPassword) {
+          if (username !== 'admin' || pw !== cfg.accessPassword) {
             _loginFailCount++
             if (_loginFailCount >= CAPTCHA_THRESHOLD && !_captcha) {
               _captcha = _genCaptcha()
@@ -231,12 +231,12 @@ function showLoginOverlay(defaultPw) {
             await fetch('/__api/auth_login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ password: pw }),
+              body: JSON.stringify({ username, password: pw }),
             })
           } catch {}
           overlay.classList.add('hide')
           setTimeout(() => overlay.remove(), 400)
-          if (cfg.accessPassword === '123456') {
+          if (cfg.accessPassword === 'claw520') {
             sessionStorage.setItem('clawpanel_must_change_pw', '1')
           }
           resolve()
@@ -245,7 +245,7 @@ function showLoginOverlay(defaultPw) {
           const resp = await fetch('/__api/auth_login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: pw }),
+            body: JSON.stringify({ username, password: pw }),
           })
           const data = await resp.json()
           if (!resp.ok) {
@@ -262,7 +262,7 @@ function showLoginOverlay(defaultPw) {
           }
           overlay.classList.add('hide')
           setTimeout(() => overlay.remove(), 400)
-          if (data.mustChangePassword || data.defaultPassword === '123456') {
+          if (data.mustChangePassword || data.defaultPassword === 'claw520') {
             sessionStorage.setItem('clawpanel_must_change_pw', '1')
           }
           resolve()
@@ -336,7 +336,7 @@ async function boot() {
   if (sessionStorage.getItem('clawpanel_must_change_pw') === '1') {
     const banner = document.createElement('div')
     banner.id = 'pw-change-banner'
-    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:13px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.15)'
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(135deg,#f472b6,#f9a8d4);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:13px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.15)'
     banner.innerHTML = `
       <span>${statusIcon('warn', 14)} 当前使用的是系统生成的默认密码，为了安全请尽快修改</span>
       <a href="#/security" style="color:#fff;background:rgba(255,255,255,0.2);padding:4px 14px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600" onclick="document.getElementById('pw-change-banner').remove();sessionStorage.removeItem('clawpanel_must_change_pw')">前往安全设置</a>

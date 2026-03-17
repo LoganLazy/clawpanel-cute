@@ -231,7 +231,7 @@ ClawStar 项目组正式开放公益 AI 接口测试计划，降低用户接入 
 - **用户后台**：https://gpt.qt.cool/user（查看用量、提交工单）
 
 ### 官方入口
-- **ClawStar 官网**：https://claw.qt.cool/
+- **ClawStar 项目主页**：https://github.com/LoganLazy/clawpanel-cute
 - **GPT-AI 网关官网**：https://gpt.qt.cool/
 - **用户后台**：https://gpt.qt.cool/user
 - **晴辰导航站**：https://qt.cool/

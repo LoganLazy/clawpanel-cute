@@ -2568,7 +2568,7 @@ pub async fn check_panel_update() -> Result<Value, String> {
                 result.insert("source".into(), Value::String(source.to_string()));
                 result.insert(
                     "downloadUrl".into(),
-                    Value::String("https://claw.qt.cool".into()),
+                    Value::String("".into()),
                 );
                 return Ok(Value::Object(result));
             }

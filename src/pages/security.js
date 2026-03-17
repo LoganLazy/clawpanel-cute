@@ -20,9 +20,9 @@ async function apiCall(cmd, args = {}) {
     const cfg = await api.readPanelConfig()
 
     if (cmd === 'auth_status') {
-      const isDefault = cfg.accessPassword === '123456'
+      const isDefault = cfg.accessPassword === 'claw520'
       const result = { hasPassword: !!cfg.accessPassword, mustChangePassword: isDefault, ignoreRisk: !!cfg.ignoreRisk }
-      if (isDefault) result.defaultPassword = '123456'
+      if (isDefault) result.defaultPassword = 'claw520'
       return result
     }
     if (cmd === 'auth_change_password') {
@@ -66,7 +66,7 @@ function checkPasswordStrengthLocal(pw) {
   if (!pw || pw.length < 6) return '密码至少 6 位'
   if (pw.length > 64) return '密码不能超过 64 位'
   if (/^\d+$/.test(pw)) return '密码不能是纯数字'
-  const weak = ['123456', '654321', 'password', 'admin', 'qwerty', 'abc123', '111111', '000000', 'letmein', 'welcome', 'clawpanel', 'openclaw']
+  const weak = ['claw520', '123456', '654321', 'password', 'admin', 'qwerty', 'abc123', '111111', '000000', 'letmein', 'welcome', 'clawpanel', 'openclaw']
   if (weak.includes(pw.toLowerCase())) return '密码太常见，请换一个更安全的密码'
   return null
 }
