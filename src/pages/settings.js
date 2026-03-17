@@ -13,9 +13,8 @@ function escapeHtml(str) {
 }
 
 const REGISTRIES = [
-  { label: '淘宝镜像 (推荐)', value: 'https://registry.npmmirror.com' },
-  { label: 'npm 官方源', value: 'https://registry.npmjs.org' },
-  { label: '华为云镜像', value: 'https://repo.huaweicloud.com/repository/npm/' },
+  { label: 'npm 官方源（默认）', value: 'https://registry.npmjs.org' },
+  { label: '淘宝镜像（可选）', value: 'https://registry.npmmirror.com' },
 ]
 
 export async function render() {
@@ -127,7 +126,7 @@ async function loadRegistry(page) {
         <input class="form-input" data-name="custom-registry" placeholder="https://..." value="${isPreset ? '' : escapeHtml(current)}" style="max-width:320px;${isPreset ? 'display:none' : ''}">
         <button class="btn btn-primary btn-sm" data-action="save-registry">保存</button>
       </div>
-      <div class="form-hint" style="margin-top:var(--space-xs)">升级和版本检测使用此源下载 npm 包，国内用户推荐淘宝镜像</div>
+      <div class="form-hint" style="margin-top:var(--space-xs)">升级和版本检测使用此源下载 npm 包</div>
     `
     const select = bar.querySelector('[data-name="registry"]')
     const customInput = bar.querySelector('[data-name="custom-registry"]')

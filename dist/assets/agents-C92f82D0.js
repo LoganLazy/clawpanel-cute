@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CRKb_1Il.js","assets/core-DhEqZVGG.js"])))=>i.map(i=>d[i]);
-import{a as m,t as d,_ as w,i as A}from"./index-CxJ7gP_v.js";import{showModal as b,showConfirm as $}from"./modal-DK6Az47R.js";async function O(){const n=document.createElement("div");n.className="page",n.innerHTML=`
+import{a as m,t as d,_ as w,i as A}from"./index-AIJTKiGy.js";import{showModal as b,showConfirm as $}from"./modal-DK6Az47R.js";async function O(){const n=document.createElement("div");n.className="page",n.innerHTML=`
     <div class="page-header">
       <div>
         <h1 class="page-title">Agent 管理</h1>

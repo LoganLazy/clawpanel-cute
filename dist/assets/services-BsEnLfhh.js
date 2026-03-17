@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/event-DjZVAIBO.js","assets/core-DhEqZVGG.js"])))=>i.map(i=>d[i]);
-import{t as v,a as l,f as B,r as N,h as A,j as M,_ as D,s as E,b as P,k as H}from"./index-CxJ7gP_v.js";import{showConfirm as h,showUpgradeModal as R}from"./modal-DK6Az47R.js";import{d as C}from"./error-diagnosis-BawKPn5g.js";function I(a){return a?String(a).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}async function rt(){const a=document.createElement("div");return a.className="page",a.innerHTML=`
+import{t as v,a as l,f as B,r as N,h as A,j as M,_ as D,s as E,b as P,k as H}from"./index-AIJTKiGy.js";import{showConfirm as h,showUpgradeModal as R}from"./modal-DK6Az47R.js";import{d as C}from"./error-diagnosis-BawKPn5g.js";function I(a){return a?String(a).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}async function rt(){const a=document.createElement("div");return a.className="page",a.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">服务管理</h1>
       <p class="page-desc">管理 OpenClaw 服务、检查更新、配置备份</p>
