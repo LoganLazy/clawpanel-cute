@@ -59,8 +59,8 @@
 }
 
 .stat-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-  border: 1px solid rgba(236, 72, 153, 0.18);
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
+  border: 1px solid rgba(236, 72, 153, 0.16);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
   box-shadow: var(--shadow-sm);
@@ -70,7 +70,7 @@
 
 .stat-card:hover {
   background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.86));
-  border-color: rgba(236, 72, 153, 0.4);
+  border-color: rgba(236, 72, 153, 0.35);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -719,14 +719,20 @@ mark {
 /* === 移动端响应式 === */
 @media (max-width: 768px) {
   .stat-cards {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-sm);
   }
   .stat-card {
     padding: var(--space-md);
   }
+  .stat-card-header {
+    gap: 6px;
+  }
   .stat-card-value {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
+  }
+  .stat-card-meta {
+    font-size: 10px;
   }
   .engage-modal {
     width: 92vw;
@@ -759,6 +765,19 @@ mark {
 @media (max-width: 480px) {
   .stat-cards {
     grid-template-columns: 1fr;
+  }
+  .stat-card {
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+  .stat-card-value {
+    font-size: var(--font-size-md);
+  }
+  .stat-card-label {
+    font-size: 10px;
+  }
+  .stat-card-meta {
+    font-size: 9px;
   }
   .engage-qr-item img {
     width: 80px;

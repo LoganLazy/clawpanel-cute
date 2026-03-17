@@ -21,14 +21,14 @@
   align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
+  border: 1px solid rgba(236, 72, 153, 0.14);
   border-radius: var(--radius-lg);
   transition: all var(--transition-fast);
 }
 .overview-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-focus);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.82));
+  border-color: rgba(236, 72, 153, 0.28);
 }
 .overview-card[data-nav]:hover {
   border-color: var(--accent);
@@ -971,14 +971,20 @@
 /* === 移动端响应式 === */
 @media (max-width: 768px) {
   .overview-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: var(--space-sm);
   }
   .overview-card {
     padding: var(--space-sm) var(--space-md);
   }
-  .overview-value {
-    font-size: 13px;
+  .overview-card-title {
+    font-size: 10px;
+  }
+  .overview-card-value {
+    font-size: var(--font-size-md);
+  }
+  .overview-card-meta {
+    font-size: 10px;
   }
   .docker-dialog {
     width: 92vw;
