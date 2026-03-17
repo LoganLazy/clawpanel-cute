@@ -159,7 +159,7 @@ function showLoginOverlay(defaultPw) {
         : (isTauri ? '应用已锁定，请输入密码' : '请输入访问密码')}</div>
       <form id="login-form">
         <input class="login-input" type="text" id="login-username" placeholder="用户名" autocomplete="username" value="admin" readonly />
-        <input class="login-input" type="${hasDefault ? 'text' : 'password'}" id="login-pw" placeholder="密码" autocomplete="current-password" autofocus value="${hasDefault ? defaultPw : ''}" />
+        <input class="login-input" type="password" id="login-pw" placeholder="密码" autocomplete="current-password" autofocus value="" />
         <div id="login-captcha" style="display:${_captcha ? 'block' : 'none'};margin-bottom:10px">
           <div style="font-size:12px;color:#888;margin-bottom:6px">请先完成验证：<strong id="captcha-q" style="color:var(--text-primary,#333)">${_captcha ? _captcha.q : ''}</strong></div>
           <input class="login-input" type="number" id="login-captcha-input" placeholder="输入计算结果" style="text-align:center" />
