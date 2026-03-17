@@ -107,6 +107,20 @@ function _checkMultiInstances(el) {
   }).catch(() => {})
 }
 
+
+function _ensureMobileMenuButton() {
+  let btn = document.getElementById('btn-mobile-menu-global')
+  if (!btn) {
+    btn = document.createElement('button')
+    btn.id = 'btn-mobile-menu-global'
+    btn.className = 'mobile-menu-btn'
+    btn.title = '打开菜单'
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>'
+    btn.addEventListener('click', _openMobileSidebar)
+    document.body.appendChild(btn)
+  }
+}
+
 export function renderSidebar(el) {
   const current = getCurrentRoute()
 
@@ -120,9 +134,9 @@ export function renderSidebar(el) {
         <img src="/images/clawstar-logo.svg" alt="ClawStar">
       </div>
       <span class="sidebar-title">ClawStar</span>
-      <button class="sidebar-close-btn" id="btn-sidebar-close" title="关闭菜单">&times;</button>
-    </div>
-    <button class="mobile-menu-btn" id="btn-mobile-menu" title="打开菜单">
+      <button class="sidebar-close-btn" id="btn-sidebar-close" title="关闭菜单">&times;    </div>
+    <!-- mobile menu button moved to body -->
+
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
     ${showSwitcher ? `<div class="instance-switcher" id="instance-switcher">
