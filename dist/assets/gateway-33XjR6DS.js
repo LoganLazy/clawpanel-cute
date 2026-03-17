@@ -1,4 +1,4 @@
-import{a as S,t as b,l as A}from"./index-rhHLY_38.js";function G(e){return e?typeof e=="string"?e:typeof e=="object"?e.$env?`$env:${e.$env}`:e.$ref?`$ref:${e.$ref}`:JSON.stringify(e):String(e):""}function M(e){return e&&typeof e=="object"&&("$env"in e||"$ref"in e)}async function O(){const e=document.createElement("div");e.className="page",e.innerHTML=`
+import{a as S,t as b,l as A}from"./index-CHo86jxB.js";function G(e){return e?typeof e=="string"?e:typeof e=="object"?e.$env?`$env:${e.$env}`:e.$ref?`$ref:${e.$ref}`:JSON.stringify(e):String(e):""}function M(e){return e&&typeof e=="object"&&("$env"in e||"$ref"in e)}async function O(){const e=document.createElement("div");e.className="page",e.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">Gateway 配置</h1>
       <p class="page-desc">Gateway 是 AI 模型的统一入口，所有应用通过它来调用模型服务</p>

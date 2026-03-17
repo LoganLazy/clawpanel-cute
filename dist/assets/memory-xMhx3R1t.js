@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CRKb_1Il.js","assets/core-DhEqZVGG.js"])))=>i.map(i=>d[i]);
-import{a as c,_ as v,t as o}from"./index-rhHLY_38.js";import{showModal as b}from"./modal-DK6Az47R.js";const y=[{key:"memory",label:"工作记忆",desc:"当前活跃的工作上下文、决策记录和进度追踪"},{key:"archive",label:"记忆归档",desc:"已归档的历史记忆文件，按时间周期整理"},{key:"core",label:"核心文件",desc:"Agent 核心配置文件，如 AGENTS.md、CLAUDE.md 等"}];async function L(){const e=document.createElement("div");e.className="page",e.innerHTML=`
+import{a as c,_ as v,t as o}from"./index-CHo86jxB.js";import{showModal as b}from"./modal-DK6Az47R.js";const y=[{key:"memory",label:"工作记忆",desc:"当前活跃的工作上下文、决策记录和进度追踪"},{key:"archive",label:"记忆归档",desc:"已归档的历史记忆文件，按时间周期整理"},{key:"core",label:"核心文件",desc:"Agent 核心配置文件，如 AGENTS.md、CLAUDE.md 等"}];async function L(){const e=document.createElement("div");e.className="page",e.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">记忆文件</h1>
       <div class="page-actions" style="display:flex;align-items:center;gap:var(--space-sm)">
