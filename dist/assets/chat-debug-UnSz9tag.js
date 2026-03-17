@@ -1,4 +1,4 @@
-import{w as z,a as $,b as s,s as e,c as q,d as O,e as F,g as H}from"./index-DJk5EKdb.js";async function P(){const a=document.createElement("div");return a.className="page",a.innerHTML=`
+import{w as z,a as $,b as s,s as e,c as q,d as O,e as F,g as H}from"./index-CB-svjh-.js";async function P(){const a=document.createElement("div");return a.className="page",a.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">系统诊断</h1>
       <p class="page-desc">全面检测系统状态，快速定位问题</p>

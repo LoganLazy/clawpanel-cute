@@ -122,6 +122,9 @@ export function renderSidebar(el) {
       <span class="sidebar-title">ClawStar</span>
       <button class="sidebar-close-btn" id="btn-sidebar-close" title="关闭菜单">&times;</button>
     </div>
+    <button class="mobile-menu-btn" id="btn-mobile-menu" title="打开菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     ${showSwitcher ? `<div class="instance-switcher" id="instance-switcher">
       <button class="instance-current" id="btn-instance-toggle">
         <span class="instance-dot ${isLocal ? 'local' : 'remote'}"></span>
@@ -185,7 +188,7 @@ export function renderSidebar(el) {
         _closeMobileSidebar()
         return
       }
-      // 移动端关闭按钮
+      // 移动端菜单按钮
       if (e.target.closest('#btn-sidebar-close')) {
         _closeMobileSidebar()
         return
@@ -246,6 +249,20 @@ function _closeMobileSidebar() {
   const overlay = document.getElementById('sidebar-overlay')
   if (sidebar) sidebar.classList.remove('sidebar-open')
   if (overlay) overlay.classList.remove('visible')
+  const mask = document.getElementById('sidebar-mobile-mask')
+  mask?.remove()
+}
+
+function _openMobileSidebar() {
+  const sidebar = document.getElementById('sidebar')
+  if (sidebar) sidebar.classList.add('sidebar-open')
+  if (!document.getElementById('sidebar-mobile-mask')) {
+    const mask = document.createElement('div')
+    mask.id = 'sidebar-mobile-mask'
+    mask.className = 'mobile-mask'
+    mask.onclick = _closeMobileSidebar
+    document.body.appendChild(mask)
+  }
 }
 
 export function openMobileSidebar() {
