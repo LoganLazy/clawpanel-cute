@@ -87,8 +87,8 @@ export async function rawFileUrl(repo, branch, filePath) {
  */
 export function deployCommand() {
   return {
-    github: `curl -fsSL ${GITHUB_RAW}/clawpanel/main/deploy.sh | bash`,
-    gitee: `curl -fsSL ${GITEE_RAW}/clawpanel/raw/main/deploy.sh | bash`,
+    github: 'curl -fsSL https://raw.githubusercontent.com/LoganLazy/clawpanel-cute/main/scripts/linux-deploy.sh | bash',
+    gitee: 'curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/LoganLazy/clawpanel-cute/main/scripts/linux-deploy.sh | bash',
   }
 }
 
