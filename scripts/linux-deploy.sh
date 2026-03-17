@@ -2,25 +2,25 @@
 set -e
 
 echo "=========================================="
-echo "  ClawPanel Web 版 一键部署脚本"
+echo "  clawpanel-cute Web 版 一键部署脚本"
 echo "  在 Linux 上通过浏览器管理 OpenClaw"
 echo "=========================================="
 echo ""
 
 PANEL_PORT=1450
-REPO_URL="https://github.com/qingchencloud/clawpanel.git"
-REPO_URL_GITEE="https://gitee.com/QtCodeCreators/clawpanel.git"
+REPO_URL="https://github.com/LoganLazy/clawpanel-cute.git"
+REPO_URL_GITEE="https://gitee.com/LoganLazy/clawpanel-cute.git"
 NPM_REGISTRY="https://registry.npmmirror.com"
 
 # 检测权限模式
 if [ "$(id -u)" = "0" ]; then
     IS_ROOT=true
-    INSTALL_DIR="/opt/clawpanel"
+    INSTALL_DIR="/opt/clawpanel-cute"
     SYSTEMD_DIR="/etc/systemd/system"
     echo "🔑 以 root 身份运行，安装到 $INSTALL_DIR"
 else
     IS_ROOT=false
-    INSTALL_DIR="$HOME/.local/share/clawpanel"
+    INSTALL_DIR="$HOME/.local/share/clawpanel-cute"
     SYSTEMD_DIR="$HOME/.config/systemd/user"
     echo "👤 以普通用户身份运行，安装到 $INSTALL_DIR"
 fi
@@ -152,15 +152,15 @@ install_openclaw() {
     fi
 }
 
-# 克隆并安装 ClawPanel
+# 克隆并安装 clawpanel-cute
 install_clawpanel() {
     if [ -d "$INSTALL_DIR" ] && [ -f "$INSTALL_DIR/package.json" ]; then
-        echo "📦 ClawPanel 已存在，更新中..."
+        echo "📦 clawpanel-cute 已存在，更新中..."
         cd "$INSTALL_DIR"
         git pull origin main 2>/dev/null || true
         npm install --registry "$NPM_REGISTRY"
     else
-        echo "📦 克隆 ClawPanel..."
+        echo "📦 克隆 clawpanel-cute..."
         mkdir -p "$INSTALL_DIR"
         if ! git clone "$REPO_URL" "$INSTALL_DIR" 2>/dev/null; then
             echo "⚠️  GitHub 克隆失败，切换到 Gitee 国内镜像..."
@@ -173,7 +173,7 @@ install_clawpanel() {
     echo "📦 构建生产版本..."
     cd "$INSTALL_DIR"
     npx vite build
-    echo "✅ ClawPanel 安装完成: $INSTALL_DIR"
+    echo "✅ clawpanel-cute 安装完成: $INSTALL_DIR"
     echo "✅ 启动命令: npm run serve"
 }
 
@@ -191,7 +191,7 @@ setup_systemd() {
     if [ "$IS_ROOT" = true ]; then
         cat > "$SYSTEMD_DIR/clawpanel.service" << EOF
 [Unit]
-Description=ClawPanel Web - OpenClaw Management Panel
+Description=clawpanel-cute Web - OpenClaw Management Panel
 After=network.target
 
 [Service]
@@ -213,7 +213,7 @@ EOF
     else
         cat > "$SYSTEMD_DIR/clawpanel.service" << EOF
 [Unit]
-Description=ClawPanel Web - OpenClaw Management Panel
+Description=clawpanel-cute Web - OpenClaw Management Panel
 After=network.target
 
 [Service]
@@ -247,7 +247,7 @@ get_local_ip() {
 # 生成默认访问密码
 setup_default_password() {
     local config_dir="$HOME/.openclaw"
-    local config_file="$config_dir/clawpanel.json"
+    local config_file="$config_dir/clawpanel-cute.json"
     mkdir -p "$config_dir"
 
     # 已存在配置且有密码则跳过
@@ -291,7 +291,7 @@ main() {
 
     echo ""
     echo "=========================================="
-    echo "  ✅ ClawPanel Web 版部署完成！"
+    echo "  ✅ clawpanel-cute Web 版部署完成！"
     echo "=========================================="
     echo ""
     echo "  🌐 访问地址: http://${ip}:${PANEL_PORT}"
@@ -320,7 +320,7 @@ main() {
     echo "    C) 启动 Gateway：openclaw gateway start"
     echo "       （常用：openclaw gateway status / restart / stop）"
     echo ""
-    echo "  用浏览器打开上面的地址，即可管理 OpenClaw。"
+    echo "  用浏览器打开上面的地址，即可管理 OpenClaw。（面板：clawpanel-cute）"
     echo "=========================================="
 }
 
