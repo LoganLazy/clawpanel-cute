@@ -312,6 +312,14 @@ main() {
         echo "    journalctl --user -u clawpanel -f    # 查看日志"
     fi
     echo ""
+    echo "  进入面板后下一步（不自动安装 OpenClaw）："
+    echo "    A) 安装 OpenClaw："
+    echo "       - root：npm install -g @qingchencloud/openclaw-zh --registry ${NPM_REGISTRY}"
+    echo "       - 普通用户：sudo npm install -g @qingchencloud/openclaw-zh --registry ${NPM_REGISTRY}"
+    echo "    B) 初始化配置：openclaw init"
+    echo "    C) 启动 Gateway：openclaw gateway start"
+    echo "       （常用：openclaw gateway status / restart / stop）"
+    echo ""
     echo "  用浏览器打开上面的地址，即可管理 OpenClaw。"
     echo "=========================================="
 }
