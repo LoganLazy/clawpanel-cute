@@ -14,7 +14,7 @@ export async function render() {
 
   page.innerHTML = `
     <div class="page-header" style="display:flex;align-items:center;gap:16px">
-      <img src="/images/logo-brand.png" alt="ClawStar" style="height:48px;width:auto">
+      <img src="/images/clawstar-logo.svg" alt="ClawStar" style="height:56px;width:auto">
       <div>
         <h1 class="page-title" style="margin:0">ClawStar</h1>
         <p class="page-desc" style="margin:0">OpenClaw 可视化管理面板 · <a href="https://claw.qt.cool" target="_blank" rel="noopener" style="color:var(--primary)">claw.qt.cool</a></p>

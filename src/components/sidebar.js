@@ -115,7 +115,7 @@ export function renderSidebar(el) {
   let html = `
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <img src="/images/logo.png" alt="ClawStar">
+        <img src="/images/clawstar-logo.svg" alt="ClawStar">
       </div>
       <span class="sidebar-title">ClawStar</span>
       <button class="sidebar-close-btn" id="btn-sidebar-close" title="关闭菜单">&times;</button>

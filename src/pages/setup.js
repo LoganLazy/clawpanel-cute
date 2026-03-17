@@ -16,7 +16,7 @@ export async function render() {
   page.innerHTML = `
     <div style="max-width:560px;margin:48px auto;text-align:center">
       <div style="margin-bottom:var(--space-lg)">
-        <img src="/images/logo-brand.png" alt="ClawStar" style="max-width:160px;width:100%;height:auto">
+        <img src="/images/clawstar-logo.svg" alt="ClawStar" style="max-width:160px;width:100%;height:auto">
       </div>
       <h1 style="font-size:var(--font-size-xl);margin-bottom:var(--space-xs)">欢迎使用 ClawStar</h1>
       <p style="color:var(--text-secondary);margin-bottom:var(--space-xl);line-height:1.6">
