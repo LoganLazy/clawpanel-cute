@@ -17,7 +17,7 @@ export async function render() {
       <img src="/images/clawstar-logo.svg" alt="ClawStar" style="height:56px;width:auto">
       <div>
         <h1 class="page-title" style="margin:0">ClawStar</h1>
-        <p class="page-desc" style="margin:0">OpenClaw 可视化管理面板 · <a href="https://claw.qt.cool" target="_blank" rel="noopener" style="color:var(--primary)">claw.qt.cool</a></p>
+        <p class="page-desc" style="margin:0">OpenClaw 可视化管理面板 · <a href="https://github.com/LoganLazy/clawpanel-cute" target="_blank" rel="noopener" style="color:var(--primary)">ClawStar</a></p>
       </div>
     </div>
     <div class="stat-cards" id="version-cards">
@@ -449,7 +449,7 @@ async function checkHotUpdate(cards, panelVersion) {
         <span style="color:var(--accent)">新版本: v${ver}</span>
         ${changelog ? `<span style="color:var(--text-tertiary);font-size:var(--font-size-xs)">${changelog}</span>` : ''}
         <button class="btn btn-primary btn-sm" id="btn-hot-download" style="padding:2px 8px;font-size:var(--font-size-xs)">热更新</button>
-        <a class="btn btn-secondary btn-sm" href="https://github.com/qingchencloud/clawpanel/releases" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">完整安装包</a>
+        <a class="btn btn-secondary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/releases" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">完整安装包</a>
       `
       meta.querySelector('#btn-hot-download')?.addEventListener('click', async () => {
         const btn = meta.querySelector('#btn-hot-download')
@@ -464,14 +464,14 @@ async function checkHotUpdate(cards, panelVersion) {
         }
       })
     } else if (!info.compatible) {
-      meta.innerHTML = '<span style="color:var(--text-tertiary)">需要更新完整安装包</span> <a class="btn btn-primary btn-sm" href="https://claw.qt.cool" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">前往官网下载</a> <a class="btn btn-secondary btn-sm" href="https://github.com/qingchencloud/clawpanel/releases" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">GitHub</a>'
+      meta.innerHTML = '<span style="color:var(--text-tertiary)">需要更新完整安装包</span> <a class="btn btn-primary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/releases" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">前往下载</a>'
     } else {
       meta.innerHTML = '<span style="color:var(--success)">已是最新</span>'
     }
   } catch (err) {
     const meta = el()
     if (!meta) return
-    meta.innerHTML = `<span style="color:var(--text-tertiary)">暂无法检查更新</span> <a class="btn btn-secondary btn-sm" href="https://claw.qt.cool" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">前往官网下载</a>`
+    meta.innerHTML = `<span style="color:var(--text-tertiary)">暂无法检查更新</span> <a class="btn btn-secondary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/releases" target="_blank" rel="noopener" style="padding:2px 8px;font-size:var(--font-size-xs)">前往下载</a>`
   }
 }
 
@@ -538,8 +538,8 @@ const PROJECTS = [
   {
     name: 'ClawStar',
     desc: 'OpenClaw 可视化管理面板，Tauri v2 桌面应用',
-    url: 'https://github.com/qingchencloud/clawpanel',
-    gitee: 'https://gitee.com/QtCodeCreators/clawpanel',
+    url: 'https://github.com/LoganLazy/clawpanel-cute',
+    gitee: 'https://github.com/LoganLazy/clawpanel-cute',
   },
   {
     name: 'ClawApp',
@@ -572,7 +572,7 @@ function renderProjects(page) {
 }
 
 const LINKS = [
-  { label: 'Claw 项目官网', url: 'https://claw.qt.cool', primary: true },
+  { label: 'ClawStar 项目主页', url: 'https://github.com/LoganLazy/clawpanel-cute', primary: true },
   { label: 'OpenClaw 中文翻译', url: 'https://github.com/1186258278/OpenClawChineseTranslation' },
   { label: 'ClawApp 手机客户端', url: 'https://clawapp.qt.cool' },
   { label: 'cftunnel 内网穿透', url: 'https://cftunnel.qt.cool' },
@@ -585,13 +585,13 @@ function renderContribute(page) {
       ClawStar 是开源项目，欢迎参与贡献！遇到问题请提 Issue，功能建议和代码改进欢迎提 PR。
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:8px">
-      <a class="btn btn-primary btn-sm" href="https://github.com/qingchencloud/clawpanel/issues/new" target="_blank" rel="noopener">提交 Issue</a>
-      <a class="btn btn-secondary btn-sm" href="https://github.com/qingchencloud/clawpanel/pulls" target="_blank" rel="noopener">提交 PR</a>
-      <a class="btn btn-secondary btn-sm" href="https://github.com/qingchencloud/clawpanel/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">贡献指南</a>
-      <a class="btn btn-secondary btn-sm" href="https://github.com/qingchencloud/clawpanel/issues" target="_blank" rel="noopener">查看 Issues</a>
+      <a class="btn btn-primary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/issues/new" target="_blank" rel="noopener">提交 Issue</a>
+      <a class="btn btn-secondary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/pulls" target="_blank" rel="noopener">提交 PR</a>
+      <a class="btn btn-secondary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">贡献指南</a>
+      <a class="btn btn-secondary btn-sm" href="https://github.com/LoganLazy/clawpanel-cute/issues" target="_blank" rel="noopener">查看 Issues</a>
     </div>
     <div style="margin-top:8px;font-size:var(--font-size-xs);color:var(--text-tertiary)">
-      国内镜像：<a href="https://gitee.com/QtCodeCreators/clawpanel" target="_blank" rel="noopener" style="color:var(--accent)">Gitee</a>（无法访问 GitHub 时可用）
+      国内镜像：<a href="https://github.com/LoganLazy/clawpanel-cute" target="_blank" rel="noopener" style="color:var(--accent)">Gitee</a>（无法访问 GitHub 时可用）
     </div>
   `
 }
@@ -608,32 +608,32 @@ function renderCompany(page) {
   el.innerHTML = `
     <div style="display:flex;flex-direction:column;gap:12px">
       <div style="display:flex;align-items:center;gap:12px">
-        <img src="/images/logo-brand.png" alt="晴辰云" style="width:40px;height:40px;border-radius:10px;flex-shrink:0">
+        <img src="/images/logo-brand.png" alt="ClawStar" style="width:40px;height:40px;border-radius:10px;flex-shrink:0">
         <div>
-          <div style="font-weight:700;font-size:var(--font-size-md)">武汉晴辰天下网络科技有限公司</div>
-          <div style="font-size:var(--font-size-sm);color:var(--text-secondary)">QingchenCloud</div>
+          <div style="font-weight:700;font-size:var(--font-size-md)">ClawStar 社区维护</div>
+          <div style="font-size:var(--font-size-sm);color:var(--text-secondary)">Community Maintained</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;font-size:var(--font-size-sm)">
         <div style="padding:12px;border-radius:var(--radius-md);border:1px solid var(--border-primary);background:var(--bg-secondary)">
-          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">官方网站</div>
-          <a href="https://qingchencloud.com" target="_blank" rel="noopener" style="color:var(--accent)">qingchencloud.com</a>
+          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">项目主页</div>
+          <a href="https://github.com/LoganLazy/clawpanel-cute" target="_blank" rel="noopener" style="color:var(--accent)">github.com/LoganLazy/clawpanel-cute</a>
         </div>
         <div style="padding:12px;border-radius:var(--radius-md);border:1px solid var(--border-primary);background:var(--bg-secondary)">
-          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">产品官网</div>
-          <a href="https://claw.qt.cool" target="_blank" rel="noopener" style="color:var(--accent)">claw.qt.cool</a>
+          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">问题反馈</div>
+          <a href="https://github.com/LoganLazy/clawpanel-cute/issues" target="_blank" rel="noopener" style="color:var(--accent)">GitHub Issues</a>
         </div>
         <div style="padding:12px;border-radius:var(--radius-md);border:1px solid var(--border-primary);background:var(--bg-secondary)">
-          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">开源仓库</div>
-          <a href="https://github.com/qingchencloud" target="_blank" rel="noopener" style="color:var(--accent)">github.com/qingchencloud</a>
+          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">讨论交流</div>
+          <span style="color:var(--text-primary)">欢迎在 Issue/PR 留言</span>
         </div>
         <div style="padding:12px;border-radius:var(--radius-md);border:1px solid var(--border-primary);background:var(--bg-secondary)">
-          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">商务合作</div>
-          <span style="color:var(--text-primary)">请通过官网联系我们</span>
+          <div style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-bottom:4px">合作与支持</div>
+          <span style="color:var(--text-primary)">暂无官方渠道</span>
         </div>
       </div>
       <div style="font-size:var(--font-size-xs);color:var(--text-tertiary);line-height:1.6">
-        我们是 OpenClaw 汉化版（3000+ Star）和 ClawStar 的作者团队。日常做 AI Agent 相关的产品和开源工具，也接企业私有化部署、定制开发之类的活儿。有事直接群里找我们就行。
+        ClawStar 为社区维护项目，与原厂团队无直接关联。请以项目仓库为准获取更新与反馈。
       </div>
     </div>
   `
