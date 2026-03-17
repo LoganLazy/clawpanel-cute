@@ -116,7 +116,7 @@ async function loadRegistry(page) {
   const bar = page.querySelector('#registry-bar')
   try {
     let current = await api.getNpmRegistry()
-    if (!current) current = 'https://registry.npmjs.org'
+    if (!current || current === 'https://registry.npmmirror.com') current = 'https://registry.npmjs.org'
     const isPreset = REGISTRIES.some(r => r.value === current)
     bar.innerHTML = `
       <div style="display:flex;align-items:center;gap:var(--space-sm);flex-wrap:wrap">
