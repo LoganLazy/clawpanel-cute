@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CRKb_1Il.js","assets/core-DhEqZVGG.js"])))=>i.map(i=>d[i]);
-import{o as O,a as w,_ as R,t as v,n as A}from"./index-CB-svjh-.js";let _=null;async function N(){const a=document.createElement("div");return a.className="page",a.innerHTML=`
+import{o as O,a as w,_ as R,t as v,n as A}from"./index-ejK_hknt.js";let _=null;async function N(){const a=document.createElement("div");return a.className="page",a.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">仪表盘</h1>
       <p class="page-desc">OpenClaw 运行状态概览</p>

@@ -1,4 +1,4 @@
-import{t as i,a as n}from"./index-CB-svjh-.js";function c(e){return e?String(e).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}const u=[{label:"npm 官方源（默认）",value:"https://registry.npmjs.org"},{label:"淘宝镜像（可选）",value:"https://registry.npmmirror.com"}];async function S(){const e=document.createElement("div");return e.className="page",e.innerHTML=`
+import{t as i,a as n}from"./index-ejK_hknt.js";function c(e){return e?String(e).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}const u=[{label:"npm 官方源（默认）",value:"https://registry.npmjs.org"},{label:"淘宝镜像（可选）",value:"https://registry.npmmirror.com"}];async function S(){const e=document.createElement("div");return e.className="page",e.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">面板设置</h1>
       <p class="page-desc">管理 ClawStar 的网络、代理和下载源配置</p>
