@@ -24,7 +24,7 @@
 ## 架构说明
 
 ```
-浏览器 ──HTTP──▶ ClawPanel Web 容器 (:1420)
+浏览器 ──HTTP──▶ ClawPanel Web 容器 (:1450)
                         │
                         ├── /__api/*   读写 ~/.openclaw/ 配置
                         ├── /ws        WebSocket 代理 → Gateway
@@ -46,7 +46,7 @@ ClawPanel Web 版 = Vite 开发服务器 + `dev-api.js` 后端中间件，在容
 docker run -d \
   --name clawpanel \
   --restart unless-stopped \
-  -p 1420:1420 \
+  -p 1450:1450 \
   -v clawpanel-data:/root/.openclaw \
   node:22-slim \
   sh -c "\
@@ -58,7 +58,7 @@ docker run -d \
     npm run serve"
 ```
 
-访问 `http://服务器IP:1420` 即可使用。
+访问 `http://服务器IP:1450` 即可使用。
 
 > ⚠️ 这种方式每次重建容器都要重新 clone + npm install，适合快速体验。生产环境推荐使用 Compose 或自定义镜像。
 
@@ -79,7 +79,7 @@ services:
     container_name: clawpanel
     restart: unless-stopped
     ports:
-      - "1420:1420"
+      - "1450:1450"
     volumes:
       - openclaw-data:/root/.openclaw
     environment:
@@ -118,7 +118,7 @@ WORKDIR /app
 RUN git clone https://github.com/qingchencloud/clawpanel.git . && \
     npm install
 
-EXPOSE 1420
+EXPOSE 1450
 
 RUN npm run build
 
@@ -151,7 +151,7 @@ WORKDIR /app
 RUN git clone https://github.com/qingchencloud/clawpanel.git . && \
     npm install
 
-EXPOSE 1420
+EXPOSE 1450
 
 RUN npm run build
 
@@ -165,7 +165,7 @@ docker build -t clawpanel .
 docker run -d \
   --name clawpanel \
   --restart unless-stopped \
-  -p 1420:1420 \
+  -p 1450:1450 \
   -v ~/.openclaw:/root/.openclaw \
   clawpanel
 ```
@@ -247,7 +247,7 @@ server {
     server_name panel.yourdomain.com;
 
     location / {
-        proxy_pass http://127.0.0.1:1420;
+        proxy_pass http://127.0.0.1:1450;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

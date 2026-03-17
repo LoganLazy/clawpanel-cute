@@ -136,7 +136,7 @@ ClawPanel 提供**纯 Web 版部署模式**（零 GUI 依赖），天然兼容 A
 curl -fsSL https://raw.githubusercontent.com/qingchencloud/clawpanel/main/scripts/linux-deploy.sh | bash
 ```
 
-部署完成后访问 `http://服务器IP:1420`，功能与桌面版一致。
+部署完成后访问 `http://服务器IP:1450`，功能与桌面版一致。
 
 📖 详细教程见 [Linux 部署指南](docs/linux-deploy.md)
 
@@ -144,7 +144,7 @@ curl -fsSL https://raw.githubusercontent.com/qingchencloud/clawpanel/main/script
 
 ```bash
 docker run -d --name clawpanel --restart unless-stopped \
-  -p 1420:1420 -v clawpanel-data:/root/.openclaw \
+  -p 1450:1450 -v clawpanel-data:/root/.openclaw \
   node:22-slim \
   sh -c "apt-get update && apt-get install -y git && \
     npm install -g @qingchencloud/openclaw-zh --registry https://registry.npmmirror.com && \
@@ -433,14 +433,14 @@ npm install
 
 # 开发模式（热更新，自带 API mock 后端）
 npm run dev
-# 浏览器打开 http://localhost:1420
+# 浏览器打开 http://localhost:1450
 
 # 构建生产版本
 npm run build
 
 # 启动 Web 服务器（Headless，适用于 Linux/ARM/Docker）
 npm run serve
-# 默认监听 0.0.0.0:1420，支持 --port 和 --host 参数
+# 默认监听 0.0.0.0:1450，支持 --port 和 --host 参数
 ```
 
 Web 版功能与桌面版一致，后端通过 `scripts/dev-api.js` 调用本机 OpenClaw CLI 实现。
@@ -494,7 +494,7 @@ Web 版适用于 Linux 服务器（无桌面环境），通过浏览器远程管
 
 - **Node.js** >= 18（推荐 22 LTS）
 - **Git**（用于 OpenClaw 依赖安装）
-- **端口** 1420（ClawPanel）+ 18789（Gateway）
+- **端口** 1450（ClawPanel）+ 18789（Gateway）
 
 ### 一键部署
 
@@ -502,14 +502,14 @@ Web 版适用于 Linux 服务器（无桌面环境），通过浏览器远程管
 curl -fsSL https://raw.githubusercontent.com/qingchencloud/clawpanel/main/scripts/linux-deploy.sh | bash
 ```
 
-部署完成后访问 `http://服务器IP:1420`。
+部署完成后访问 `http://服务器IP:1450`。
 
 ### 安全注意事项
 
 > ⚠️ **公网暴露风险**：Web 版默认监听所有网卡。请务必：
 
 1. **设置访问密码** — 首次登录会提示修改默认密码，或在「安全设置」页面配置
-2. **防火墙限制** — 仅开放 1420 端口给可信 IP
+2. **防火墙限制** — 仅开放 1450 端口给可信 IP
 3. **Nginx 反向代理 + HTTPS** — 生产环境强烈建议使用 HTTPS
 
 <details>
@@ -524,7 +524,7 @@ server {
     ssl_certificate_key /path/to/key.pem;
 
     location / {
-        proxy_pass http://127.0.0.1:1420;
+        proxy_pass http://127.0.0.1:1450;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

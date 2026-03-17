@@ -27,7 +27,7 @@
 ## 架构说明
 
 ```
-浏览器 ──HTTP──▶ ClawPanel Web (Vite + dev-api 后端, :1420)
+浏览器 ──HTTP──▶ ClawPanel Web (Vite + dev-api 后端, :1450)
                         │
                         ├── /__api/*  读写 ~/.openclaw/ 配置文件
                         ├── /ws       WebSocket 代理 → Gateway
@@ -69,7 +69,7 @@ curl -fsSL https://raw.githubusercontent.com/qingchencloud/clawpanel/main/script
 4. 创建 systemd 服务、开机自启
 5. 启动 ClawPanel Web，输出访问地址
 
-部署完成后访问 `http://服务器IP:1420`。
+部署完成后访问 `http://服务器IP:1450`。
 
 ---
 
@@ -132,7 +132,7 @@ npm install
 
 ```bash
 npm run build    # 构建生产版前端
-npm run serve    # 启动 Web 服务器 (默认 0.0.0.0:1420)
+npm run serve    # 启动 Web 服务器 (默认 0.0.0.0:1450)
 ```
 
 自定义端口：
@@ -146,12 +146,12 @@ npm run serve -- --port 8080
 ```
   ┌─────────────────────────────────────────┐
   │   🦀 ClawPanel Web Server (Headless)    │
-  │   http://localhost:1420/                │
+  │   http://localhost:1450/                │
   └─────────────────────────────────────────┘
   [api] API 已启动，配置目录: /root/.openclaw
 ```
 
-打开浏览器访问 `http://服务器IP:1420` 即可使用 ClawPanel。
+打开浏览器访问 `http://服务器IP:1450` 即可使用 ClawPanel。
 
 ---
 
@@ -165,7 +165,7 @@ npm run serve -- --port 8080
 docker run -d \
   --name clawpanel \
   --restart unless-stopped \
-  -p 1420:1420 \
+  -p 1450:1450 \
   -v clawpanel-data:/root/.openclaw \
   node:22-slim \
   sh -c "apt-get update && apt-get install -y git && \
@@ -181,7 +181,7 @@ docker run -d \
 部署完成后，用浏览器打开：
 
 ```
-http://服务器IP:1420
+http://服务器IP:1450
 ```
 
 ClawPanel 会自动检测本机的 OpenClaw 安装，你可以：
@@ -268,7 +268,7 @@ server {
     server_name panel.yourdomain.com;
 
     location / {
-        proxy_pass http://127.0.0.1:1420;
+        proxy_pass http://127.0.0.1:1450;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -296,14 +296,14 @@ sudo certbot --nginx -d panel.yourdomain.com
 ### UFW (Ubuntu/Debian)
 
 ```bash
-sudo ufw allow 1420/tcp    # ClawPanel Web
+sudo ufw allow 1450/tcp    # ClawPanel Web
 sudo ufw allow 18789/tcp   # OpenClaw Gateway（如需外部直连）
 ```
 
 ### firewalld (CentOS/RHEL)
 
 ```bash
-sudo firewall-cmd --permanent --add-port=1420/tcp
+sudo firewall-cmd --permanent --add-port=1450/tcp
 sudo firewall-cmd --reload
 ```
 
@@ -363,11 +363,11 @@ sudo npm install -g @qingchencloud/openclaw-zh@2026.3.7-zh.2 --registry https://
 
 ## 常见问题
 
-### Q: 端口 1420 被占用？
+### Q: 端口 1450 被占用？
 
 ```bash
 # 查看占用
-lsof -i :1420
+lsof -i :1450
 
 # 使用其他端口
 npm run serve -- --port 3000
@@ -397,7 +397,7 @@ openclaw --version
 
 ### Q: 从外网无法访问？
 
-1. 检查防火墙是否放行端口 1420
+1. 检查防火墙是否放行端口 1450
 2. 云服务器需在安全组/防火墙规则中开放端口
 3. 推荐使用 Nginx 反向代理 + HTTPS，避免直接暴露端口
 

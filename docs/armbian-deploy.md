@@ -46,7 +46,7 @@ npm ci --registry https://registry.npmmirror.com
 npm run build
 
 # 4. 启动服务
-npm run serve -- --port 1420
+npm run serve -- --port 1450
 ```
 
 ### 设置开机自启（systemd）
@@ -61,7 +61,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/clawpanel
-ExecStart=/usr/bin/node scripts/serve.js --port 1420
+ExecStart=/usr/bin/node scripts/serve.js --port 1450
 Restart=on-failure
 RestartSec=5
 Environment=NODE_ENV=production
@@ -74,7 +74,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now clawpanel
 ```
 
-访问 `http://<板子IP>:1420` 即可使用。
+访问 `http://<板子IP>:1450` 即可使用。
 
 ## 方式二：Docker 模式
 
@@ -87,7 +87,7 @@ curl -fsSL https://get.docker.com | sh
 # 一键启动（OpenClaw + ClawPanel 一体）
 docker run -d \
   --name openclaw \
-  -p 1420:1420 \
+  -p 1450:1450 \
   -p 18789:18789 \
   -v openclaw-data:/root/.openclaw \
   --restart unless-stopped \
@@ -99,7 +99,7 @@ docker run -d \
 ```bash
 docker run -d \
   --name openclaw \
-  -p 1420:1420 \
+  -p 1450:1450 \
   -p 18789:18789 \
   -v openclaw-data:/root/.openclaw \
   --restart unless-stopped \

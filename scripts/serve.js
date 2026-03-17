@@ -5,7 +5,7 @@
  * 适用于 Linux 服务器、Docker 等无桌面环境
  *
  * 用法：
- *   npm run serve              # 默认 0.0.0.0:1420
+ *   npm run serve              # 默认 0.0.0.0:1450
  *   npm run serve -- --port 8080
  *   npm run serve -- --host 127.0.0.1 --port 3000
  *   PORT=8080 npm run serve
@@ -25,7 +25,7 @@ const DIST_DIR = path.resolve(__dirname, '..', 'dist')
 function parseArgs() {
   const args = process.argv.slice(2)
   let host = process.env.HOST || '0.0.0.0'
-  let port = parseInt(process.env.PORT, 10) || 1420
+  let port = parseInt(process.env.PORT, 10) || 1450
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--host' && args[i + 1]) host = args[++i]
     if (args[i] === '--port' && args[i + 1]) port = parseInt(args[++i], 10)
@@ -38,7 +38,7 @@ ClawPanel Web Server (Headless)
 
 选项:
   --host <addr>   监听地址 (默认: 0.0.0.0)
-  --port, -p <n>  监听端口 (默认: 1420)
+  --port, -p <n>  监听端口 (默认: 1450)
   --help, -h      显示帮助
 
 环境变量:
@@ -46,7 +46,7 @@ ClawPanel Web Server (Headless)
   PORT            监听端口
 
 示例:
-  npm run serve                    # 0.0.0.0:1420
+  npm run serve                    # 0.0.0.0:1450
   npm run serve -- --port 8080     # 0.0.0.0:8080
   npm run serve -- --host 127.0.0.1 -p 3000
 `)
