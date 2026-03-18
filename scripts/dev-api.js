@@ -1510,13 +1510,18 @@ const handlers = {
     return Object.entries(channels).map(([id, val]) => ({
       id,
       enabled: val?.enabled !== false,
+      accounts: id === 'qqbot' && val?.accounts ? Object.entries(val.accounts).map(([aid, av]) => ({ id: aid, enabled: av?.enabled !== false })) : undefined,
     }))
   },
 
-  read_platform_config({ platform }) {
+  read_platform_config({ platform, accountId }) {
     if (!fs.existsSync(CONFIG_PATH)) return { exists: false }
     const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'))
-    const saved = cfg.channels?.[platform]
+    let saved = cfg.channels?.[platform]
+    if (platform === 'qqbot' && accountId) {
+      const accounts = cfg.channels?.qqbot?.accounts || {}
+      saved = accounts[accountId]
+    }
     if (!saved) return { exists: false }
     const form = {}
     if (platform === 'qqbot') {
@@ -1550,6 +1555,13 @@ const handlers = {
     const entry = { enabled: true }
     if (platform === 'qqbot') {
       entry.token = `${form.appId}:${form.appSecret}`
+      if (accountId) {
+        if (!cfg.channels.qqbot) cfg.channels.qqbot = { enabled: true }
+        if (!cfg.channels.qqbot.accounts) cfg.channels.qqbot.accounts = {}
+        cfg.channels.qqbot.accounts[accountId] = entry
+        fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2))
+        return { ok: true }
+      }
     } else if (platform === 'telegram') {
       entry.botToken = form.botToken
       if (form.allowedUsers) entry.allowFrom = form.allowedUsers.split(',').map(s => s.trim()).filter(Boolean)
@@ -1581,19 +1593,52 @@ const handlers = {
     return { ok: true }
   },
 
-  remove_messaging_platform({ platform }) {
+  remove_messaging_platform({ platform, accountId }) {
     if (!fs.existsSync(CONFIG_PATH)) throw new Error('openclaw.json 不存在')
     const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'))
-    if (cfg.channels) delete cfg.channels[platform]
+    if (platform === 'qqbot' && accountId) {
+      const accounts = cfg.channels?.qqbot?.accounts || {}
+      delete accounts[accountId]
+      cfg.channels.qqbot.accounts = accounts
+    } else if (cfg.channels) {
+      delete cfg.channels[platform]
+    }
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2))
     return { ok: true }
   },
 
-  toggle_messaging_platform({ platform, enabled }) {
+  toggle_messaging_platform({ platform, enabled, accountId }) {
     if (!fs.existsSync(CONFIG_PATH)) throw new Error('openclaw.json 不存在')
     const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'))
-    if (!cfg.channels?.[platform]) throw new Error(`平台 ${platform} 未配置`)
-    cfg.channels[platform].enabled = enabled
+    if (platform === 'qqbot' && accountId) {
+      const accounts = cfg.channels?.qqbot?.accounts || {}
+      if (!accounts[accountId]) throw new Error(`平台 ${platform} 账号 ${accountId} 未配置`)
+      accounts[accountId].enabled = enabled
+      cfg.channels.qqbot.accounts = accounts
+    } else {
+      if (!cfg.channels?.[platform]) throw new Error(`平台 ${platform} 未配置`)
+      cfg.channels[platform].enabled = enabled
+    }
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2))
+    return { ok: true }
+  },
+
+
+  save_binding({ channel, agentId }) {
+    if (!fs.existsSync(CONFIG_PATH)) throw new Error('openclaw.json 不存在')
+    const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'))
+    if (!cfg.bindings) cfg.bindings = []
+    cfg.bindings = cfg.bindings.filter(b => b.match?.channel !== channel)
+    cfg.bindings.push({ agentId, match: { channel } })
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2))
+    return { ok: true }
+  },
+
+  remove_binding({ channel }) {
+    if (!fs.existsSync(CONFIG_PATH)) throw new Error('openclaw.json 不存在')
+    const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'))
+    if (!cfg.bindings) cfg.bindings = []
+    cfg.bindings = cfg.bindings.filter(b => b.match?.channel !== channel)
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2))
     return { ok: true }
   },

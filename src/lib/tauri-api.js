@@ -193,6 +193,10 @@ export const api = {
   updateAgentModel: (id, model) => { invalidate('list_agents'); return invoke('update_agent_model', { id, model }) },
   backupAgent: (id) => invoke('backup_agent', { id }),
 
+  
+  saveBinding: ({ channel, agentId }) => { invalidate('read_openclaw_config'); return invoke('save_binding', { channel, agentId }) },
+  removeBinding: ({ channel }) => { invalidate('read_openclaw_config'); return invoke('remove_binding', { channel }) },
+
   // 日志（短缓存）
   readLogTail: (logName, lines = 100) => cachedInvoke('read_log_tail', { logName, lines }, 5000),
   searchLog: (logName, query, maxResults = 50) => invoke('search_log', { logName, query, maxResults }),
@@ -205,7 +209,7 @@ export const api = {
   exportMemoryZip: (category, agentId) => invoke('export_memory_zip', { category, agentId: agentId || null }),
 
   // 消息渠道管理
-  readPlatformConfig: (platform) => invoke('read_platform_config', { platform }),
+  readPlatformConfig: (platform, accountId = null) => invoke('read_platform_config', { platform, accountId }),
   saveMessagingPlatform: (platform, form, accountId) => { invalidate('list_configured_platforms', 'read_platform_config'); return invoke('save_messaging_platform', { platform, form, accountId: accountId || null }) },
   removeMessagingPlatform: (platform) => { invalidate('list_configured_platforms', 'read_platform_config'); return invoke('remove_messaging_platform', { platform }) },
   toggleMessagingPlatform: (platform, enabled) => { invalidate('list_configured_platforms', 'read_openclaw_config', 'read_platform_config'); return invoke('toggle_messaging_platform', { platform, enabled }) },

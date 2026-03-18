@@ -1,4 +1,4 @@
-import{b as y,a as h,t as g}from"./index-DD-QsezU.js";let a=null,t=null,b=!1;async function j(){const s=document.createElement("div");return s.className="page",a=s,s.innerHTML=`
+import{b as y,a as h,t as g}from"./index-CqyYAB0C.js";let a=null,t=null,b=!1;async function j(){const s=document.createElement("div");return s.className="page",a=s,s.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">通信与自动化</h1>
       <p class="page-desc">管理 AI 在各消息渠道中的行为方式：如何回复消息、支持哪些命令、如何接收外部通知等</p>

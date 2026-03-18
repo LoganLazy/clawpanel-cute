@@ -173,19 +173,46 @@ function renderConfigured(page, state) {
     <div class="config-section">
       <div class="config-section-title">已接入</div>
       <div class="platforms-grid">
-        ${state.configured.map(p => {
+        ${state.configured.flatMap(p => {
           const reg = PLATFORM_REGISTRY[p.id]
           const label = reg?.label || p.id
           const ic = icon(reg?.iconName || 'radio', 22)
+          const accounts = p.accounts || []
+          if (accounts.length) {
+            return accounts.map(acc => {
+              const channelKey = getChannelBindingKey(p.id, acc.id)
+              const allBindings = (state.bindings || []).filter(b => b.match?.channel === channelKey)
+              const boundAgents = allBindings.map(b => b.agentId || 'main')
+              const showAll = boundAgents.length > 1 || (boundAgents.length === 1 && boundAgents[0] !== 'main')
+              const agentBadges = showAll ? boundAgents.map(a =>
+                `<span style="font-size:var(--font-size-xs);color:var(--accent);background:var(--accent-muted);padding:1px 6px;border-radius:10px;white-space:nowrap">→ ${escapeAttr(a)}</span>`
+              ).join(' ') : ''
+              return `
+                <div class="platform-card ${acc.enabled ? 'active' : 'inactive'}" data-pid="${p.id}" data-account="${acc.id}">
+                  <div class="platform-card-header">
+                    <span class="platform-emoji">${ic}</span>
+                    <span class="platform-name">${label}</span>
+                    <span class="badge badge-secondary" style="margin-left:6px">${escapeAttr(acc.id)}</span>
+                    ${agentBadges}
+                    <span class="platform-status-dot ${acc.enabled ? 'on' : 'off'}"></span>
+                  </div>
+                  <div class="platform-card-actions">
+                    <button class="btn btn-sm btn-secondary" data-action="edit">${icon('edit', 14)} 编辑</button>
+                    <button class="btn btn-sm btn-secondary" data-action="toggle">${acc.enabled ? icon('pause', 14) + ' 禁用' : icon('play', 14) + ' 启用'}</button>
+                    <button class="btn btn-sm btn-danger" data-action="remove">${icon('trash', 14)}</button>
+                  </div>
+                </div>
+              `
+            })
+          }
           const channelKey = getChannelBindingKey(p.id)
           const allBindings = (state.bindings || []).filter(b => b.match?.channel === channelKey)
           const boundAgents = allBindings.map(b => b.agentId || 'main')
-          // 只有一个 main 绑定时不显示标签（默认行为），多绑定时全部显示
           const showAll = boundAgents.length > 1 || (boundAgents.length === 1 && boundAgents[0] !== 'main')
           const agentBadges = showAll ? boundAgents.map(a =>
             `<span style="font-size:var(--font-size-xs);color:var(--accent);background:var(--accent-muted);padding:1px 6px;border-radius:10px;white-space:nowrap">→ ${escapeAttr(a)}</span>`
           ).join(' ') : ''
-          return `
+          return [`
             <div class="platform-card ${p.enabled ? 'active' : 'inactive'}" data-pid="${p.id}">
               <div class="platform-card-header">
                 <span class="platform-emoji">${ic}</span>
@@ -199,7 +226,7 @@ function renderConfigured(page, state) {
                 <button class="btn btn-sm btn-danger" data-action="remove">${icon('trash', 14)}</button>
               </div>
             </div>
-          `
+          `]
         }).join('')}
       </div>
     </div>
@@ -208,12 +235,13 @@ function renderConfigured(page, state) {
   // 绑定事件
   el.querySelectorAll('.platform-card').forEach(card => {
     const pid = card.dataset.pid
-    card.querySelector('[data-action="edit"]').onclick = () => openConfigDialog(pid, page, state)
+    const accountId = card.dataset.account || null
+    card.querySelector('[data-action="edit"]').onclick = () => openConfigDialog(pid, page, state, accountId)
     card.querySelector('[data-action="toggle"]').onclick = async () => {
       const cur = state.configured.find(p => p.id === pid)
       if (!cur) return
       try {
-        await api.toggleMessagingPlatform(pid, !cur.enabled)
+        await api.toggleMessagingPlatform(pid, !cur.enabled, accountId)
         toast(`${PLATFORM_REGISTRY[pid]?.label || pid} 已${cur.enabled ? '禁用' : '启用'}`, 'success')
         await loadPlatforms(page, state)
       } catch (e) { toast('操作失败: ' + e, 'error') }
@@ -222,7 +250,7 @@ function renderConfigured(page, state) {
       const yes = await showConfirm(`确定移除 ${PLATFORM_REGISTRY[pid]?.label || pid}？配置将被删除。`)
       if (!yes) return
       try {
-        await api.removeMessagingPlatform(pid)
+        await api.removeMessagingPlatform(pid, accountId)
         toast('已移除', 'info')
         await loadPlatforms(page, state)
       } catch (e) { toast('移除失败: ' + e, 'error') }
@@ -264,7 +292,7 @@ async function openBindAgentDialog(pid, page, state) {
   try { agents = await api.listAgents() } catch {}
   if (!Array.isArray(agents)) agents = []
 
-  const channelKey = getChannelBindingKey(pid)
+  const channelKey = getChannelBindingKey(pid, accountId)
   const existingBindings = (state.bindings || []).filter(b => b.match?.channel === channelKey)
   const boundIds = new Set(existingBindings.map(b => b.agentId || 'main'))
 
@@ -311,7 +339,7 @@ async function openBindAgentDialog(pid, page, state) {
 
 // ── 配置弹窗（新增 / 编辑共用） ──
 
-async function openConfigDialog(pid, page, state) {
+async function openConfigDialog(pid, page, state, accountId = null) {
   const reg = PLATFORM_REGISTRY[pid]
   if (!reg) { toast('未知平台', 'error'); return }
 
@@ -321,7 +349,7 @@ async function openConfigDialog(pid, page, state) {
   let agents = []
   let currentBinding = ''
   try {
-    const res = await api.readPlatformConfig(pid)
+    const res = await api.readPlatformConfig(pid, accountId)
     if (res?.values) {
       existing = res.values
     }
@@ -336,7 +364,7 @@ async function openConfigDialog(pid, page, state) {
   try {
     const config = await api.readOpenclawConfig()
     const bindings = config?.bindings || []
-    const channelKey = getChannelBindingKey(pid)
+    const channelKey = getChannelBindingKey(pid, accountId)
     const found = bindings.find(b => b.match?.channel === channelKey)
     if (found) currentBinding = found.agentId || ''
   } catch {}
@@ -348,7 +376,7 @@ async function openConfigDialog(pid, page, state) {
     const label = a.identityName ? a.identityName.split(',')[0].trim() : a.id
     return `<option value="${escapeAttr(a.id)}" ${a.id === currentBinding ? 'selected' : ''}>${a.id}${a.id !== label ? ' — ' + label : ''}</option>`
   }).join('')
-  const supportsMultiAccount = ['feishu', 'dingtalk', 'dingtalk-connector'].includes(pid)
+  const supportsMultiAccount = ['feishu', 'dingtalk', 'dingtalk-connector', 'qqbot'].includes(pid)
   const accountIdHtml = supportsMultiAccount ? `
     <div class="form-group">
       <label class="form-label">账号标识（多账号模式）</label>
@@ -540,6 +568,8 @@ async function openConfigDialog(pid, page, state) {
 
   btnVerify.onclick = async () => {
     const form = collectForm()
+    const accountId = modal.querySelector('input[name="__accountId"]')?.value?.trim() || null
+    const agentId = modal.querySelector('select[name="__agentBinding"]')?.value || "main"
     // 前端基础检查
     for (const f of reg.fields) {
       if (f.required && !form[f.key]) {
@@ -576,6 +606,8 @@ async function openConfigDialog(pid, page, state) {
   // 保存按钮
   btnSave.onclick = async () => {
     const form = collectForm()
+    const accountId = modal.querySelector('input[name="__accountId"]')?.value?.trim() || null
+    const agentId = modal.querySelector('select[name="__agentBinding"]')?.value || "main"
     for (const f of reg.fields) {
       if (f.required && !form[f.key]) {
         toast(`请填写「${f.label}」`, 'warning')
@@ -687,7 +719,7 @@ async function openConfigDialog(pid, page, state) {
 }
 
 /** 将平台 ID 映射为 openclaw bindings 中的 channel key */
-function getChannelBindingKey(pid) {
+function getChannelBindingKey(pid, accountId = null) {
   const map = {
     qqbot: 'qqbot',
     telegram: 'telegram',
@@ -695,7 +727,8 @@ function getChannelBindingKey(pid) {
     feishu: 'feishu',
     dingtalk: 'dingtalk-connector',
   }
-  return map[pid] || pid
+  const base = map[pid] || pid
+  return accountId ? `${base}:${accountId}` : base
 }
 
 /** 保存渠道→Agent 绑定到 openclaw.json 的 bindings 数组
@@ -705,7 +738,7 @@ function getChannelBindingKey(pid) {
 async function saveChannelBinding(pid, agentId, oldAgentId, accountId) {
   const config = await api.readOpenclawConfig()
   if (!config) return
-  const channelKey = getChannelBindingKey(pid)
+  const channelKey = getChannelBindingKey(pid, accountId)
   let bindings = Array.isArray(config.bindings) ? [...config.bindings] : []
 
   // 构建匹配条件
