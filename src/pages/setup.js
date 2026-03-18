@@ -569,7 +569,13 @@ function bindEvents(page, nodeOk, detectState) {
           }
 
           toast('OpenClaw 安装成功', 'success')
-          setTimeout(() => window.location.reload(), 1500)
+          setTimeout(() => {
+            if (window.location.hash) {
+              window.location.hash = '#/dashboard'
+            } else {
+              window.location.href = '/#/dashboard'
+            }
+          }, 1200)
         })
 
         // 后台任务失败
@@ -608,7 +614,13 @@ function bindEvents(page, nodeOk, detectState) {
         const msg = await api.installOpenclaw(source)
         modal.setDone(msg)
         toast('OpenClaw 安装成功', 'success')
-        setTimeout(() => window.location.reload(), 1500)
+        setTimeout(() => {
+          if (window.location.hash) {
+            window.location.hash = '#/dashboard'
+          } else {
+            window.location.href = '/#/dashboard'
+          }
+        }, 1200)
         cleanup()
       }
     } catch (e) {

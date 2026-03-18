@@ -1,4 +1,4 @@
-import{a as v,t as h}from"./index-DGbIDRMZ.js";let f=0;function a(s){return s?String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}async function _(){const s=document.createElement("div");return s.className="page",s.innerHTML=`
+import{a as v,t as h}from"./index-ZS5CnNlZ.js";let f=0;function a(s){return s?String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"):""}async function _(){const s=document.createElement("div");return s.className="page",s.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">Skills</h1>
       <p class="page-desc">管理已安装的 Skills，或从社区搜索安装新技能</p>
