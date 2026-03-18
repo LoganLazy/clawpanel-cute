@@ -1,4 +1,4 @@
-import{b as C,a as w,t as f}from"./index-CqyYAB0C.js";import{showConfirm as L,showModal as O}from"./modal-DK6Az47R.js";import{Q as q,f as _,P as j,A as B,M as F}from"./model-presets-C_GYMLJU.js";async function ve(){const t=document.createElement("div");t.className="page",t.innerHTML=`
+import{b as C,a as w,t as f}from"./index-DGbIDRMZ.js";import{showConfirm as L,showModal as O}from"./modal-DK6Az47R.js";import{Q as q,f as _,P as j,A as B,M as F}from"./model-presets-C_GYMLJU.js";async function ve(){const t=document.createElement("div");t.className="page",t.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">模型配置</h1>
       <p class="page-desc">添加 AI 模型服务商，配置可用模型</p>

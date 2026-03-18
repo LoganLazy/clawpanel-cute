@@ -1,5 +1,5 @@
 const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/event-DjZVAIBO.js","assets/core-DhEqZVGG.js"])))=>i.map(i=>d[i]);
-import{i as j,a as o,j as N,b as G,t as m,_ as A,s as k,k as q}from"./index-CqyYAB0C.js";import{showUpgradeModal as P}from"./modal-DK6Az47R.js";import{d as O}from"./error-diagnosis-BawKPn5g.js";async function J(){const t=document.createElement("div");return t.className="page",t.innerHTML=`
+import{i as j,a as o,j as N,b as G,t as m,_ as A,s as k,k as q}from"./index-DGbIDRMZ.js";import{showUpgradeModal as P}from"./modal-DK6Az47R.js";import{d as O}from"./error-diagnosis-BawKPn5g.js";async function J(){const t=document.createElement("div");return t.className="page",t.innerHTML=`
     <div class="setup-center" style="text-align:center">
       <div style="display:flex;justify-content:center;margin-bottom:var(--space-lg)">
         <img src="/images/clawstar-logo.svg" alt="ClawStar" style="max-width:160px;width:100%;height:auto">

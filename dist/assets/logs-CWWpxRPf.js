@@ -1,4 +1,4 @@
-import{a as n,t as o}from"./index-CqyYAB0C.js";const v=[{key:"gateway",label:"Gateway 日志"},{key:"gateway-err",label:"Gateway 错误"},{key:"guardian",label:"守护进程"},{key:"guardian-backup",label:"备份日志"},{key:"config-audit",label:"审计日志"}];let s=null;async function m(){const e=document.createElement("div");e.className="page",e.innerHTML=`
+import{a as n,t as o}from"./index-DGbIDRMZ.js";const v=[{key:"gateway",label:"Gateway 日志"},{key:"gateway-err",label:"Gateway 错误"},{key:"guardian",label:"守护进程"},{key:"guardian-backup",label:"备份日志"},{key:"config-audit",label:"审计日志"}];let s=null;async function m(){const e=document.createElement("div");e.className="page",e.innerHTML=`
     <div class="page-header">
       <h1 class="page-title">日志查看</h1>
       <p class="page-desc">查看 OpenClaw 各服务日志</p>
